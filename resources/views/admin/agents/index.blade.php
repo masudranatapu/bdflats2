@@ -33,13 +33,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Admin roles') }}</h1>
+                        <h1 class="m-0">{{ __('Agents List') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                             </li>
-                            <li class="breadcrumb-item active">{{ __('Admin roles') }}</li>
+                            <li class="breadcrumb-item active">{{ __('Agents List') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="m-0">
-                                    {{ __('Admin roles list') }}
+                                    {{ __('Agents List') }}
                                     <span class="float-right">
                                         <a href="{{ route('admin.agents.create') }}" class="text-warning font-weight-bold">
                                             <i class="fa fa-plus"></i>

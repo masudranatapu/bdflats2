@@ -207,15 +207,9 @@
     </div>
 @endsection
 <!--push from page-->
-<<<<<<< HEAD
-@push('custom_js')
-    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
-    <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js') }}"></script>
-=======
 @push('script')
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
->>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
 
     <!--for image upload-->
     <script type="text/javascript" src="{{ asset('app-assets/file_upload/image-uploader.min.js') }}"></script>
@@ -227,11 +221,6 @@
     <script src="{{ asset('app-assets/js/scripts/tooltip/tooltip.js') }}"></script>
 
     <!--for image gallery-->
-<<<<<<< HEAD
-    <script src="{{ asset('app-assets/lightgallery/dist/js/lightgallery.min.js') }}"></script>
-@endpush('custom_js')
-=======
     <script src="{{ asset('app-assets/lightgallery/dist/js/lightgallery.min.js')}}"></script>
 
 @endpush('script')
->>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0

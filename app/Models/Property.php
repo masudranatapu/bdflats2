@@ -172,6 +172,7 @@ class Property extends Model
             $list->payment_auto_renew = $request->auto_payment_renew ? 1 : 0;
             $list->max_sharing_permission = $request->max_sharing_permission;
             if ($request->billing == 'paid') {
+
                 $price = ListingPrice::where('f_listing_type_no', $request->listing_type)->first();
                 $list_type = ListingType::where('id', $request->listing_type)->first();
                 $property_price = 0;

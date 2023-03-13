@@ -26,15 +26,16 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SslCommerzPaymentController;
-
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('cc', function () {
-    \Artisan::call('cache:forget spatie.permission.cache ');
-    \Artisan::call('cache:clear');
-    \Artisan::call('view:clear');
-    \Artisan::call('route:clear');
-    \Artisan::call('config:clear');
-    \Artisan::call('config:cache');
+    Artisan::call('cache:forget spatie.permission.cache ');
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
 
     return 'DONE';
 });
@@ -63,8 +64,6 @@ Route::get('/api/get-area', 'HomeController@getArea')->name('api.get.area');
 Route::post('post-registration', 'Auth\AuthController@postRegistration')->name('register.post');
 Route::post('post-login', 'Auth\AuthController@postLogin')->name('login.post');
 Route::post('post-otp-verify', 'Auth\AuthController@postOtpVerify')->name('register.otp_verify');
-
-
 
 //common routes
 Route::get('make-suggested-property', 'CornController@makeSuggProperty')->name('make-suggested-property');
@@ -196,24 +195,19 @@ Route::group(['namespace' => 'Owner', 'middleware' => ['auth']], function () {
 Route::group([ 'middleware' => ['auth','IsVerified']], function () {
     Route::get('my-account', 'UserController@getMyAccount')->name('my-account');
 });
-
+// profile
 Route::get('profile/edit', 'UserController@getEditProfile')->name('profile.edit');
 Route::post('profile/store_or_update', 'UserController@updateProfile')->name('profile.store_or_update');
 Route::post('profile/password_update', 'UserController@updatePass')->name('profile.password_update');
-
+// auth
 Auth::routes();
 // Route::post('seeker-login', 'Seeker\LoginController@login')->name('seeker.login');
-
 Route::get('home', 'HomeController@index')->name('home');
-
-
 // SSLCOMMERZ Start
 Route::post('pay', [SslCommerzPaymentController::class, 'index'])->name('ssl.pay');
 //Route::post('pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
-
 Route::post('success', [SslCommerzPaymentController::class, 'success'])->name('ssl.success');
 Route::post('fail', [SslCommerzPaymentController::class, 'fail'])->name('ssl.fail');
 Route::post('cancel', [SslCommerzPaymentController::class, 'cancel'])->name('ssl.cancel');
-
 //Route::post('ipn', [SslCommerzPaymentController::class, 'ipn'])->name('ssl.ipn');
 //SSLCOMMERZ END

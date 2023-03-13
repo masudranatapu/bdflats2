@@ -6,7 +6,6 @@
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
         <span class="brand-text font-weight-light">{{ $settings->site_name }}</span>
     </a>
-    <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -19,7 +18,7 @@
                 </li>
                 <li class="nav-item @yield('Property Management') ">
                     <a href="#" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fas fa-box-open"></i>
                         <p>Properties<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('Property Management')">
@@ -33,7 +32,7 @@
                 </li>
                 <li class="nav-item @yield('Property Seekers')">
                     <a href="#" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fas fa-users-cog"></i>
                         <p>Property Seekers<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('Property Seekers')">
@@ -47,7 +46,7 @@
                 </li>
                 <li class="nav-item @yield('Property Owner')">
                     <a href="#" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fas fa-users-cog"></i>
                         <p>Property Owner<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('Property Owner')">
@@ -61,7 +60,7 @@
                 </li>
                 <li class="nav-item @yield('BDFLAT_Agents')">
                     <a href="#" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fas fa-users-cog"></i>
                         <p>BDFLAT Agents<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('BDFLAT_Agents')">
@@ -75,7 +74,7 @@
                 </li>
                 <li class="nav-item @yield('Payment')">
                     <a href="#" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fa-brands fa-paypal"></i>
                         <p>Payment<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('Payment')">
@@ -95,20 +94,20 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.recharge_request') }}" class="nav-link @yield('recharge_request')">
                                 <i class="fas fa-cog nav-icon"></i>
-                                <p>Refund Request</p>
+                                <p>Recharge Request</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.agent_commission') }}" class="nav-link @yield('agent_commission')">
                                 <i class="fas fa-cog nav-icon"></i>
-                                <p>Refund Request</p>
+                                <p>Agent Commission</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item @yield('Pages')">
                     <a href="#" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fa fa-sticky-note"></i>
                         <p>Pages<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('Pages')">
@@ -126,10 +125,9 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item @yield('Web Ads')">
                     <a href="#" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fa fa-cog"></i>
                         <p>Web Ads<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('Web Ads')">
@@ -163,7 +161,8 @@
                 </li>
                 <li class="nav-item @yield('settings_menu') ">
                     <a href="{{ route('admin.settings') }}" class="nav-link ">
-                        <i class="nav-icon far fa-envelope"></i>
+                        {{-- <i class="far fa-envelope"></i> --}}
+                        <i class="nav-icon fa fa-gear"></i>
                         <p>Settings<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('settings_menu')">
@@ -187,22 +186,17 @@
                                 <p>SMTP</p>
                             </a>
                         </li> --}}
-
-
                     </ul>
                 </li>
                 <li class="nav-item"><a href="{{ route('admin.user.index') }}"
-                        class="nav-link @yield('admin-user')"><i class=" fa fa-book"></i>
+                        class="nav-link @yield('admin-user')"><i class="fa fa-user-plus"></i>
                         {{ __('Admin User & Role') }}</a></li>
-
                 <li class="nav-item"><a href="{{ route('admin.roles.index') }}"
-                        class="nav-link @yield('admin-roles')"><i class=" fa fa-book"></i> {{ __('Admin Roles') }}</a>
+                        class="nav-link @yield('admin-roles')"><i class="fa fa-user"></i> {{ __('Admin Roles') }}</a>
                 </li>
-
                 <li class="nav-item"><a href="{{ route('admin.permissions.index') }}"
-                        class="nav-link @yield('admin-permissions')"><i class=" fa fa-book"></i>
+                        class="nav-link @yield('admin-permissions')"><i class="fa fa-user-plus"></i>
                         {{ __('Admin permissions') }}</a></li>
-
             </ul>
         </nav>
     </div>
