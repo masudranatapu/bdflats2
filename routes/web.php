@@ -38,7 +38,7 @@ Route::get('cc', function () {
     Artisan::call('config:cache');
 
     return 'DONE';
-});
+})->name('cc');
 
 Route::get('ask/{question}', function($question){
     $result = OpenAI::completions()->create([
