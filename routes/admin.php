@@ -99,9 +99,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('agents-withdraw_credit', [AgentsController::class, 'getWithdrawCredit'])->name('agents.withdraw_credit');
     Route::post('agents_list', [DataTableController::class, 'getAgents'])->name('agents.list');
 
-
-
-
     Route::get('transaction', [TransactionController::class, 'getIndex'])->name('transaction.index');
     Route::get('transaction/create', [TransactionController::class, 'getCreate'])->name('transaction.create');
     Route::post('transaction/store', [TransactionController::class, 'postStore'])->name('transaction.store');
@@ -109,12 +106,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('transaction/{id}/update', [TransactionController::class, 'postUpdate'])->name('transaction.update');
     Route::post('transaction/{id}/destroy', [TransactionController::class, 'getDelete'])->name('transaction.destroy');
 
-
     Route::get('refund-request', [TransactionController::class,'getRefundRequest'])->name('refund_request');
     Route::get('refund-request/{id}/edit', [TransactionController::class,'editRefundRequest'])->name('refund_request.edit');
     Route::post('refund-request/{id}/update', [TransactionController::class,'updateRefundRequest'])->name('refund_request.update');
     Route::post('refund-request', [DataTableController::class, 'getRefundRequest'])->name('refund_request.list');
-
 
     Route::get('recharge-request', [TransactionController::class,'getRechargeRequest'])->name('recharge_request');
     Route::get('recharge-request/{id}/edit', [TransactionController::class,'editRechargeRequest'])->name('recharge_request.edit');
