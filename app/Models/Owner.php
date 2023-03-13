@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use DB;
 use App\Traits\RepoResponse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Owner extends Model
 {

@@ -39,24 +39,17 @@ use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 |
 */
 
-
-
-//====================Admin Authentication=========================
-
+// Admin Authentication
 Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])->name('login.admin');
 Route::post('admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
 Route::get('admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
-
-
+// admin
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth:admin'], 'where' => ['locale' => '[a-zA-Z]{2}']], function () {
-
-
+    // dashboard
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/cc', 'DashboardController@cacheClear')->name('cacheClear');
     Route::get('settings', ['as' => 'settings', 'uses' => 'SettingsController@settings']);
     // Route::post('postDashboardNote', ['as' => 'admin.dashboard.note.post', 'uses' => 'DashboardController@postDashboardNote']);
-
-
     //property
     Route::get('property', [PropertyController::class, 'getIndex'])->name('property.index');
     Route::post('property_list', [DataTableController::class, 'getProperty'])->name('property.list');
@@ -66,12 +59,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('property/{id}/update', [PropertyController::class, 'putUpdate'])->name('property.update');
     Route::get('property/{id}/view', [PropertyController::class, 'getView'])->name('property.view');
     Route::get('property/{id}/activity', [PropertyController::class, 'getaAtivity'])->name('property.activity');
-
+    // listing price
     Route::get('listing-price', [ListingPriceController::class, 'getIndex'])->name('listing_price.list');
     Route::post('listing-price/update', [ListingPriceController::class, 'postUpdate'])->name('listing_price.update');
     Route::post('listing-lead-price/update', [ListingPriceController::class, 'postLeadPriceUpdate'])->name('listing_lead_price.update');
-
-
+    // owner
     Route::get('owner', [OwnerController::class, 'getIndex'])->name('owner.index');
     Route::get('owner/{id}/view', [OwnerController::class, 'getView'])->name('owner.view');
     Route::get('owner/{id}/edit', [OwnerController::class, 'getEdit'])->name('owner.edit');
@@ -84,8 +76,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('owner/{id}/recharge', [OwnerController::class, 'getRecharge'])->name('owner.recharge');
     Route::post('owner/{id}/recharge', [OwnerController::class, 'postRecharge'])->name('owner.recharge.store');
     Route::post('owner_list', [DataTableController::class, 'getOwner'])->name('owner.list');
-
-
     //Seeker
     Route::get('seeker', [SeekerController::class, 'getIndex'])->name('seeker.index');
     Route::get('seeker/{id}/view', [SeekerController::class, 'getView'])->name('seeker.view');
@@ -97,9 +87,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('seeker/get_area/{id}', [SeekerController::class, 'getArea'])->name('seeker.get_area');
     Route::post('seeker_list', [DataTableController::class, 'getSeeker'])->name('seeker.list');
     Route::get('seeker/payment-account', [SeekerController::class, 'paymentAccount'])->name('seeker.payment-account.list');
-
-
-
     //Agent
     Route::get('agents', [AgentsController::class, 'getIndex'])->name('agents.index');
     Route::get('agents/new', [AgentsController::class, 'getCreate'])->name('agents.create');
@@ -110,33 +97,25 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('agents-earnings/{id}', [AgentsController::class, 'getEarnings'])->name('agents.earnings');
     Route::get('agents-withdraw_credit', [AgentsController::class, 'getWithdrawCredit'])->name('agents.withdraw_credit');
     Route::post('agents_list', [DataTableController::class, 'getAgents'])->name('agents.list');
-
-
-
-
+    // Transaction
     Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
     Route::get('transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
     Route::post('transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
     Route::get('transaction/{id}/edit', [TransactionController::class, 'edit'])->name('transaction.edit');
     Route::post('transaction/{id}/update', [TransactionController::class, 'update'])->name('transaction.update');
     Route::post('transaction/{id}/destroy', [TransactionController::class, 'destroy'])->name('transaction.destroy');
-
-
+    // refund request
     Route::get('refund-request', [TransactionController::class,'getRefundRequest'])->name('refund_request');
     Route::get('refund-request/{id}/edit', [TransactionController::class,'editRefundRequest'])->name('refund_request.edit');
     Route::post('refund-request/{id}/update', [TransactionController::class,'updateRefundRequest'])->name('refund_request.update');
     Route::post('refund_request', [DataTableController::class, 'getRefundRequest'])->name('refund_request.list');
-
-
+    // recharge request
     Route::get('recharge-request', [TransactionController::class,'getRechargeRequest'])->name('recharge_request');
     Route::get('recharge-request/{id}/edit', [TransactionController::class,'editRechargeRequest'])->name('recharge_request.edit');
     Route::post('recharge-request/{id}/update', [TransactionController::class,'updateRechargeRequest'])->name('recharge_request.update');
     Route::post('recharge_request', [DataTableController::class, 'getRechargeRequest'])->name('recharge_request.list');
-
+    // agent commission
     Route::get('agent-commission', [TransactionController::class, 'getAgentCommission'])->name('agent_commission');
-
-
-
     //Pages
     Route::get('pages', [PagesController::class, 'getIndex'])->name('pages.index');
     Route::get('pages/create', [PagesController::class, 'getCreate'])->name('pages.create');
@@ -144,8 +123,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('pages/{id}/edit', [PagesController::class, 'getEdit'])->name('pages.edit');
     Route::post('pages/{id}/update', [PagesController::class, 'postUpdate'])->name('pages.update');
     Route::get('pages/{id}/delete', [PagesController::class, 'getDelete'])->name('pages.delete');
-
-
     //Pages Category
     Route::get('pages-category', [PagesCategoryController::class, 'getIndex'])->name('pages-category.list');
     Route::get('pages-category/create', [PagesCategoryController::class, 'getCreate'])->name('pages-category.create');
@@ -153,63 +130,47 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('pages-category/{id}/edit', [PagesCategoryController::class, 'getEdit'])->name('pages-category.edit');
     Route::post('pages-category/{id}/update', [PagesCategoryController::class, 'postUpdate'])->name('pages-category.update');
     Route::get('pages-category/{id}/delete', [PagesCategoryController::class, 'getDelete'])->name('pages-category.delete');
-
-
-
     // Ads
     Route::get('ads',[AdsController::class, 'getIndex'])->name('ads');
     Route::get('ads/create',[AdsController::class, 'createAd'])->name('ads.create');
     Route::post('ads/store',[AdsController::class, 'storeAd'])->name('ads.store');
     Route::get('ads/{id}/edit',[AdsController::class, 'editAd'])->name('ads.edit');
     Route::post('ads/{id}/update',[AdsController::class, 'updateAd'])->name('ads.update');
-
     Route::get('ads/{id}/images',[AdsController::class, 'getAdsImages'])->name('ads-image');
     Route::post('ads/{id}/images/store',[AdsController::class, 'storeAdsImage'])->name('ads-image.store');
     Route::post('ads/{id}/images/update',[AdsController::class, 'updateAdsImage'])->name('ads-image.update');
     Route::get('ads/{id}/images/delete',[AdsController::class, 'deleteAdsImage'])->name('ads-image.delete');
-
     Route::get('ads_position',[AdsController::class, 'getAdsPosition'])->name('ads_position');
     Route::get('ads_position/create',[AdsController::class, 'createAdsPosition'])->name('ads_position.create');
     Route::post('ads_position/store',[AdsController::class, 'storeAdsPosition'])->name('ads_position.store');
     Route::get('ads_position/{id}/edit',[AdsController::class, 'editAdsPosition'])->name('ads_position.edit');
     Route::post('ads_position/{id}/update',[AdsController::class, 'updateAdsPosition'])->name('ads_position.update');
-
-
-
-
-
+    // city
     Route::get('city', [CityController::class, 'getIndex'])->name('city.list');
     Route::get('city/create', [CityController::class, 'getCreate'])->name('city.create');
     Route::post('city/store', [CityController::class, 'postStore'])->name('city.store');
     Route::get('city/{id}/edit', [CityController::class, 'getEdit'])->name('city.edit');
     Route::post('city/{id}/update', [CityController::class, 'postUpdate'])->name('city.update');
     Route::get('city_list', [CityController::class, 'getCity'])->name('city.list');
-
-
+    // area
     Route::get('area', [AreaController::class, 'getIndex'])->name('area.list');
     Route::get('area/create', [AreaController::class, 'getCreate'])->name('area.create');
     Route::post('area/store', [AreaController::class, 'postStore'])->name('area.store');
     Route::get('area/{id}/edit', [AreaController::class, 'getEdit'])->name('area.edit');
     Route::post('area/{id}/update', [AreaController::class, 'postUpdate'])->name('area.update');
     Route::get('area_list', [AreaController::class, 'getArea'])->name('area.get');
+    // property
     // Route::get('area_list', [AreaController::class, 'getArea'])->name('area.list');
-
-
-
-
-
     // Route::get('property/new', ['middleware' => 'acl:new_product', 'as' => 'admin.product.create', 'uses' => 'ProductController@getCreate']);
     // Route::post('property/store', ['middleware' => 'acl:new_product', 'as' => 'admin.product.store', 'uses' => 'ProductController@postStore']);
     // Route::get('property/{id}/edit', ['middleware' => 'acl:edit_product', 'as' => 'admin.product.edit', 'uses' => 'ProductController@getEdit']);
     // Route::get('property/{id}/activity', ['middleware' => 'acl:edit_product_activity', 'as' => 'admin.product.activity', 'uses' => 'ProductController@getaAtivity']);
     // Route::get('property/{id}/view', ['middleware' => 'acl:view_product', 'as' => 'admin.product.view', 'uses' => 'ProductController@getView']);
     // Route::post('property/{id}/update', ['middleware' => 'acl:edit_product', 'as' => 'admin.product.update', 'uses' => 'ProductController@putUpdate']);
-
+    // property
     Route::post('property-delete_img', [PropertyController::class, 'postDeleteImage'])->name('property.delete_image');
-
     Route::get('property/ajax-listing-variant', [PropertyController::class, 'addListingVariant'])->name('property.get_variant');
     Route::get('property/ajax-property-type/{id}', [PropertyController::class, 'getPropertyType'])->name('property.get_property_type');
-
     // Route::post('product_variant/store', [, 'uses' => 'ProductController@postStoreProductVariant'])->name('admin.product_variant.store');
     // Route::post('product_variant/{id}/update', [ , 'uses' => 'ProductController@putUpdateProductVariant'])->name('admin.product_variant.update');
     // Route::get('product_variant/{id}/delete', [, 'uses' => 'ProductController@getDeleteProductVariant'])->name('admin.product_variant.delete');
@@ -220,10 +181,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
     // Route::post('product-search', ['admin.product_search', 'uses' => 'ProductController@getProductSearchList'])->name();
     // Route::post('product/search-back', ['admin.add_to_mother_page', 'uses' => 'ProductController@getProductSearchGoBack'])->name();
-
-
-
-
     // Users
     Route::get('roles', [RolesController::class, 'index'])->name('roles.index');
     Route::get('roles/create', [RolesController::class, 'create'])->name('roles.create');
@@ -232,8 +189,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('roles/{id}/edit', [RolesController::class, 'edit'])->name('roles.edit');
     Route::post('roles/{id}/update', [RolesController::class, 'update'])->name('roles.update');
     Route::delete('roles/{id}/destroy', [RolesController::class, 'destroy'])->name('roles.destroy');
-
-
+    // permissions
     Route::get('permissions', [PermissionsController::class, 'index'])->name('permissions.index');
     Route::get('permissions/create', [PermissionsController::class, 'create'])->name('permissions.create');
     Route::post('permissions/store', [PermissionsController::class, 'store'])->name('permissions.store');
@@ -241,8 +197,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('permissions/{id}/edit', [PermissionsController::class, 'edit'])->name('permissions.edit');
     Route::post('permissions/{id}/update', [PermissionsController::class, 'update'])->name('permissions.update');
     Route::post('permissions/{id}/destroy', [PermissionsController::class, 'destroy'])->name('permissions.destroy');
-
-
+    // user
     Route::get('user', [UserController::class, 'index'])->name('user.index');
     Route::get('user/create', [UserController::class, 'create'])->name('user.create');
     Route::post('user/store', [UserController::class, 'store'])->name('user.store');
@@ -250,11 +205,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('user/{id}/update', [UserController::class, 'update'])->name('user.update');
     Route::post('user/{id}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
 
-
-
-    // admin profile
+    // profile
     Route::get('profile', 'DashboardController@adminProfile')->name('profile');
-
 
     // franchises list
     // Route::get('franchises', 'FranchisesController@index')->name('franchises.index');
@@ -265,8 +217,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     // Route::get('franchise/view/{slug}', 'FranchisesController@view')->name('franchises.view');
     // Route::get('franchise/delete/{id}', 'FranchisesController@delete')->name('franchises.delete');
 
-
-     //Category
+    //Category
     //  Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     //     Route::get('/', 'CategoryController@index')->name('index');
     //     Route::post('/store', 'CategoryController@store')->name('store');
@@ -283,8 +234,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     //     Route::post('/{id}/update', 'SubCategoryController@update')->name('update');
     //     Route::get('/{id}/delete', 'SubCategoryController@delete')->name('delete');
     // });
-
-
     //Blog Category
     // Route::group(['prefix' => 'blog-category', 'as' => 'blog-category.'], function () {
     //     Route::get('/', 'BlogCategoryController@index')->name('index');
@@ -349,7 +298,5 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     //     Route::get('{id}/view', 'CityController@view')->name('view');
     //     Route::get('{id}/delete', 'CityController@delete')->name('delete');
     // });
-
-
 
 });

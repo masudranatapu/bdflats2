@@ -91,8 +91,6 @@ class PropertyController extends BaseController
         return view('admin.property.index', compact('data'));
     }
 
-
-
     // public function getProductSearch()
     // {
     //     Session::put('list_type', 'searchlist');
