@@ -69,7 +69,7 @@ class User extends Authenticatable
             return $this->formatResponse(true, '', 'admin.seeker.edit', $data);
         }
 
-        return $this->formatResponse(false, 'Did not found data !', 'admin.seeker.list', null);
+        return $this->formatResponse(false, 'Did not found data !', 'admin.seeker.index', null);
     }
 
     public function postUpdate($request): object
@@ -192,17 +192,17 @@ class User extends Authenticatable
             DB::rollback();
             dd($e);
             if ($request->id) {
-                return $this->formatResponse(false, 'Property Seeker not updated successfully !', 'admin.seeker.list');
+                return $this->formatResponse(false, 'Property Seeker not updated successfully !', 'admin.seeker.index');
             } else {
-                return $this->formatResponse(false, 'Property Seeker not created successfully !', 'admin.seeker.list');
+                return $this->formatResponse(false, 'Property Seeker not created successfully !', 'admin.seeker.index');
             }
         }
 
         DB::commit();
         if ($request->id) {
-            return $this->formatResponse(true, 'Property Seeker Updated successfully !', 'admin.seeker.list');
+            return $this->formatResponse(true, 'Property Seeker Updated successfully !', 'admin.seeker.index');
         } else {
-            return $this->formatResponse(true, 'Property Seeker Created successfully !', 'admin.seeker.list');
+            return $this->formatResponse(true, 'Property Seeker Created successfully !', 'admin.seeker.index');
         }
     }
 
@@ -211,9 +211,9 @@ class User extends Authenticatable
         try {
             $data = Transaction::where('F_CUSTOMER_NO', $id)->get();
         } catch (\Throwable $th) {
-            return $this->formatResponse(fasle, 'Data not found', 'admin.seeker.list');
+            return $this->formatResponse(fasle, 'Data not found', 'admin.seeker.index');
         }
-        return $this->formatResponse(true, 'Payment list found successfully !', 'admin.seeker.list', $data);
+        return $this->formatResponse(true, 'Payment list found successfully !', 'admin.seeker.index', $data);
     }
 
     public function postRecharge($request, int $id): object
@@ -260,9 +260,9 @@ class User extends Authenticatable
             $data = Transaction::with(['payment'])->where('f_customer_no', $id)->get();
 
         } catch (\Throwable $th) {
-            return $this->formatResponse(false, 'Data not found', 'admin.seeker.list');
+            return $this->formatResponse(false, 'Data not found', 'admin.seeker.index');
         }
-        return $this->formatResponse(true, 'Payment list found successfully !', 'admin.seeker.list', $data);
+        return $this->formatResponse(true, 'Payment list found successfully !', 'admin.seeker.index', $data);
 
     }
 
