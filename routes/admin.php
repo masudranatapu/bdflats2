@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\Admin\OwnerController;
+use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\AgentsController;
 use App\Http\Controllers\Admin\SeekerController;
@@ -81,7 +82,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('owner/{id}/password', [OwnerController::class, 'getPasswordEdit'])->name('owner.password.edit');
     Route::post('owner/{id}/password/update', [OwnerController::class, 'postPasswordUpdate'])->name('owner.password.update');
     Route::get('owner/{id}/recharge', [OwnerController::class, 'getRecharge'])->name('owner.recharge');
-    Route::post('owner/{id}/recharge', [OwnerController::class, 'postRecharge'])->name('owner.recharge.stort');
+    Route::post('owner/{id}/recharge', [OwnerController::class, 'postRecharge'])->name('owner.recharge.store');
     Route::post('owner_list', [DataTableController::class, 'getOwner'])->name('owner.list');
 
 
@@ -95,7 +96,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('seeker/{id}/recharge', [SeekerController::class, 'postRecharge'])->name('seeker.recharge');
     Route::get('seeker/get_area/{id}', [SeekerController::class, 'getArea'])->name('seeker.get_area');
     Route::post('seeker_list', [DataTableController::class, 'getSeeker'])->name('seeker.list');
-    Route::get('payment-account', [SeekerController::class, 'paymentAccount'])->name('payment-account.list');
+    Route::get('seeker/payment-account', [SeekerController::class, 'paymentAccount'])->name('seeker.payment-account.list');
 
 
 
@@ -137,7 +138,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
 
     //Pages
-    Route::get('pages', [PagesController::class, 'getIndex'])->name('pages.list');
+    Route::get('pages', [PagesController::class, 'getIndex'])->name('pages.index');
     Route::get('pages/create', [PagesController::class, 'getCreate'])->name('pages.create');
     Route::post('pages/store', [PagesController::class, 'postStore'])->name('pages.store');
     Route::get('pages/{id}/edit', [PagesController::class, 'getEdit'])->name('pages.edit');

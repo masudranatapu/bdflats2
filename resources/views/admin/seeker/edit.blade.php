@@ -11,7 +11,7 @@
     <li class="breadcrumb-item active">Edit Property Seeker</li>
 @endsection
 
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{asset('/custom/css/custom.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/select2.min.css') }}">
@@ -760,11 +760,11 @@
 @endsection
 
 
-@push('custom_js')
+@push('script')
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
-    <script src="{{asset('/assets/js/forms/datepicker/moment.min.js')}}"></script>
-    <script src="{{asset('/assets/js/forms/datepicker/bootstrap-datetimepicker.min.js')}}"></script>
+    <script src="{{ asset('/assets/js/forms/datepicker/moment.min.js')}}"></script>
+    <script src="{{ asset('/assets/js/forms/datepicker/bootstrap-datetimepicker.min.js')}}"></script>
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
     <script>
         //ck editor

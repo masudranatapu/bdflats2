@@ -134,8 +134,8 @@
                     </a>
                     <ul class="nav nav-treeview @yield('Pages')">
                         <li class="nav-item">
-                            <a href="{{ route('admin.pages.list') }}"
-                                class="nav-link @yield('pages_list')">
+                            <a href="{{ route('admin.pages.index') }}"
+                                class="nav-link @yield('pages_index')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <p>Pages List</p>
                             </a>

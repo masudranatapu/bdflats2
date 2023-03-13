@@ -11,7 +11,7 @@ class PageCategory extends Model
     const CREATED_AT = 'created_on';
     const UPDATED_AT = 'modified_on';
 
-    public function pages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function pages()
     {
         return $this->hasMany('App\Models\Page', 'f_page_category_no', 'id');
     }
@@ -27,4 +27,6 @@ class PageCategory extends Model
             ->take($limit)
             ->get();
     }
+
+
 }

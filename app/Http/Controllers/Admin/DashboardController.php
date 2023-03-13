@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -12,6 +13,10 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $data['title'] = 'Dashboard';
+        $data['total_property'] = DB::table('prd_listings')->count();
+        $data['total_property_published'] =  DB::table('prd_listings')->where('status',10)->count();;
+        $data['total_owner'] = DB::table('users')->whereIn('user_type',[2,3,4])->count();
+        $data['total_seeker'] = DB::table('users')->where('user_type',1)->count();
         return view('admin.dashboard',compact('data'));
     }
 

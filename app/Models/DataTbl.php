@@ -85,13 +85,17 @@ class DataTbl extends Model
 
                 $edit = $view = $payment = '';
 
-                $view = ' <a href="' . route("admin.seeker.view", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-info mb-05 mr-05" title="View">View</a>';
+                if (Auth::user()->can('admin.seeker.view')){
+                    $view = ' <a href="' . route("admin.seeker.view", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-info mb-05 mr-05" title="View">View</a>';
+                }
 
+                if (Auth::user()->can('admin.seeker.edit')){
+                    $edit = ' <a href="' . route("admin.seeker.edit", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-warning mb-05 mr-05" title="Edit">Edit</a>';
+                }
 
-                $edit = ' <a href="' . route("admin.seeker.edit", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-warning mb-05 mr-05" title="Edit">Edit</a>';
-
-
-                $payment = ' <a href="' . route("admin.seeker.payment", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-success mb-05 mr-05" title="View Payment">Payment</a>';
+                if (Auth::user()->can('admin.seeker.payment')){
+                    $payment = ' <a href="' . route("admin.seeker.payment", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-success mb-05 mr-05" title="View Payment">Payment</a>';
+                }
 
                 return $view . $edit . $payment;
 

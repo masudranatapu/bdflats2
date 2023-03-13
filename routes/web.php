@@ -29,6 +29,7 @@ use App\Http\Controllers\SslCommerzPaymentController;
 
 
 Route::get('cc', function () {
+    \Artisan::call('cache:forget spatie.permission.cache ');
     \Artisan::call('cache:clear');
     \Artisan::call('view:clear');
     \Artisan::call('route:clear');

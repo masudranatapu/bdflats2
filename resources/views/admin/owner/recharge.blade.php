@@ -218,7 +218,7 @@
             });
 
             function getPaymentAccounts(method_id) {
-                $.ajax('{{ route('admin.payment-account.list') . '?query=' }}' + method_id)
+                $.ajax('{{ route('admin.seeker.payment-account.list') . '?query=' }}' + method_id)
                     .done(res => {
                         $('#payment_account').html(res);
                     })
