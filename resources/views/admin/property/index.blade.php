@@ -12,8 +12,6 @@
 @endsection
 
 @push('style')
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-tooltip.css')}}"> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}"> --}}
     <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 @endpush
 
@@ -58,6 +56,16 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-lg-12">
+                        @if(session()->has('flashMessageSuccess'))
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <i class="fa fa-times"  style="color: white;" ></i>
+                                </button>
+                                {{ session()->get('flashMessageSuccess') }}
+                            </div>
+                        @endif
+                    </div>
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
@@ -200,9 +208,6 @@
 
 @push('script')
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    {{-- <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
-    <script src="{{asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script> --}}
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

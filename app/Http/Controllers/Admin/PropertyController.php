@@ -199,6 +199,7 @@ class PropertyController extends BaseController
     public function putUpdate(ProductRequest $request, $id)
     {
         $this->resp = $this->property->postUpdate($request, $id);
+        // dd($this->resp->redirect_class);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
