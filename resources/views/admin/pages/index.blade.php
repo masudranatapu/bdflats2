@@ -82,7 +82,7 @@
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
                                                         <td>{{ $page->title }}</td>
-                                                        <td>{{ $page->url_slug }}</td>
+                                                        <td>{{ url('/page/') }}/{{ $page->url_slug }}</td>
                                                         <td class="font-weight-bold text-primary">{{ $page->order_id }}</td>
                                                         @if($page->is_active)
                                                             <td class="text-success">Active</td>

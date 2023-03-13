@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Traits\RepoResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
@@ -10,8 +12,7 @@ class Page extends Model
      use RepoResponse;
     protected $table = 'web_search_pages';
     protected $primaryKey = 'id';
-    const CREATED_AT = 'ss_created_on';
-    const UPDATED_AT = 'ss_modified_on';
+
 
 
     protected static function boot()
@@ -53,85 +54,84 @@ class Page extends Model
         DB::beginTransaction();
         try {
             $page = new Pages();
-            $page->F_PAGE_CATEGORY_NO = $request->page_category;
-            $page->TITLE = $request->page_title;
-            $page->URL_SLUG = env('APP_URL') . '/page/' . $request->page_url;
-            $page->SEARCH_URL = $request->search_url;
-            $page->ORDER_ID = $request->order_id;
-            $page->META_DESCRIPTION = $request->meta_description;
-            $page->META_KEYWARDS = $request->meta_keywords;
-            $page->IS_ACTIVE = $request->status;
-            $page->IS_BOTTOM_VIEW = $request->view_on_bottom_list ? 1 : 0;
+            $page->f_page_category_no   = $request->page_category;
+            $page->title                = $request->page_title;
+            $page->url_slug             = $request->page_url;
+            $page->search_url           = $request->search_url;
+            $page->order_id             = $request->order_id;
+            $page->meta_description     = $request->meta_description;
+            $page->meta_keywards        = $request->meta_keywords;
+            $page->is_active            = $request->status;
+            $page->is_bottom_view       = $request->view_on_bottom_list ? 1 : 0;
 
             if ($request->hasFile('images')) {
-                $image = $request->file('images')[0];
-                $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
-                $imagePath = '/uploads/pages/';
+                $image      = $request->file('images')[0];
+                $imageName  = uniqid() . '.' . $image->getClientOriginalExtension();
+                $imagePath  = '/uploads/pages/';
                 $image->move(public_path($imagePath), $imageName);
 
-                $page->IMAGE_PATH = $imagePath . $imageName;
+                $page->image_path = $imagePath . $imageName;
             }
             $page->save();
 
-            $this->status = true;
-            $this->msg = 'Page added successfully!';
+            $this->status   = true;
+            $this->msg      = 'Page added successfully!';
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
         }
 
         DB::commit();
-        return $this->formatResponse($this->status, $this->msg, 'admin.pages.list');
+        return $this->formatResponse($this->status, $this->msg, 'admin.pages.index');
     }
 
     public function updatePage($request, int $id)
     {
-        $this->status = false;
-        $this->msg = 'Page could not be updated!';
+        $this->status   = false;
+        $this->msg      = 'Page could not be updated!';
 
         DB::beginTransaction();
         try {
             $page = Page::find($id);
-            $page->F_PAGE_CATEGORY_NO = $request->page_category;
-            $page->TITLE = $request->page_title;
-            $page->URL_SLUG = env('APP_URL') . '/page/' . $request->page_url;
-            $page->SEARCH_URL = $request->search_url;
-            $page->ORDER_ID = $request->order_id;
-            $page->META_DESCRIPTION = $request->meta_description;
-            $page->META_KEYWARDS = $request->meta_keywords;
-            $page->IS_ACTIVE = $request->status;
-            $page->IS_BOTTOM_VIEW = $request->view_on_bottom_list ? 1 : 0;
+            $page->f_page_category_no   = $request->page_category;
+            $page->title                = $request->page_title;
+            $page->url_slug             = $request->page_url;
+            $page->search_url           = $request->search_url;
+            $page->order_id             = $request->order_id;
+            $page->meta_description     = $request->meta_description;
+            $page->meta_keywards        = $request->meta_keywords;
+            $page->is_active            = $request->status;
+            $page->is_bottom_view       = $request->view_on_bottom_list ? 1 : 0;
 
             if ($request->hasFile('images')) {
-                $image = $request->file('images')[0];
-                $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
-                $imagePath = '/uploads/pages/';
+                $image      = $request->file('images')[0];
+                $imageName  = uniqid() . '.' . $image->getClientOriginalExtension();
+                $imagePath  = '/uploads/pages/';
                 $image->move(public_path($imagePath), $imageName);
-                $page->IMAGE_PATH = $imagePath . $imageName;
+                $page->image_path = $imagePath . $imageName;
             }
             $page->save();
 
-            $this->status = true;
-            $this->msg = 'Page updated successfully!';
+            $this->status   = true;
+            $this->msg      = 'Page updated successfully!';
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
         }
 
         DB::commit();
-        return $this->formatResponse($this->status, $this->msg, 'admin.pages.list');
+        return $this->formatResponse($this->status, $this->msg, 'admin.pages.index');
     }
 
     public function deletePage(int $id): object
     {
-        $this->status = false;
-        $this->msg = 'Page could not be deleted!';
+        $this->status   = false;
+        $this->msg      = 'Page could not be deleted!';
 
         DB::beginTransaction();
         try {
             $category = Page::find($id);
             $category->delete();
-
             $this->status = true;
             $this->msg = 'Page deleted successfully!';
         } catch (\Exception $e) {
@@ -140,7 +140,7 @@ class Page extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($this->status, $this->msg, 'admin.pages.list');
+        return $this->formatResponse($this->status, $this->msg, 'admin.pages.index');
     }
 
     public function getPagesCategories($limit = 2000): object
@@ -157,22 +157,22 @@ class Page extends Model
 
     public function storePagesCategory($request): object
     {
-        $this->status = false;
-        $this->msg = 'Page category could not be added!';
+        $this->status   = false;
+        $this->msg      = 'Page category could not be added!';
 
         DB::beginTransaction();
         try {
             $category = new PagesCategory();
-            $category->NAME = $request->category_name;
-            $category->IS_ACTIVE = $request->status;
-            $category->META_KEYWARDS = $request->meta_keywords;
-            $category->META_DESCRIPTION = $request->meta_description;
-            $category->ORDER_ID = $request->order_id;
-            $category->PROPERTY_FOR = $request->property_for;
+            $category->name             = $request->category_name;
+            $category->is_active        = $request->status;
+            $category->meta_keywards    = $request->meta_keywords;
+            $category->meta_description = $request->meta_description;
+            $category->order_id         = $request->order_id;
+            $category->property_for     = $request->property_for;
             $category->save();
 
-            $this->status = true;
-            $this->msg = 'Page category added successfully!';
+            $this->status   = true;
+            $this->msg      = 'Page category added successfully!';
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
@@ -184,18 +184,18 @@ class Page extends Model
 
     public function updatePagesCategory($request, int $id)
     {
-        $this->status = false;
-        $this->msg = 'Page category could not be updated!';
+        $this->status   = false;
+        $this->msg      = 'Page category could not be updated!';
 
         DB::beginTransaction();
         try {
             $category = PageCategory::find($id);
-            $category->NAME = $request->category_name;
-            $category->IS_ACTIVE = $request->status;
-            $category->META_KEYWARDS = $request->meta_keywords;
-            $category->META_DESCRIPTION = $request->meta_description;
-            $category->ORDER_ID = $request->order_id;
-            $category->PROPERTY_FOR = $request->property_for;
+            $category->name             = $request->category_name;
+            $category->is_active        = $request->status;
+            $category->meta_keywards    = $request->meta_keywords;
+            $category->meta_description = $request->meta_description;
+            $category->order_id         = $request->order_id;
+            $category->property_for     = $request->property_for;
             $category->save();
 
             $this->status = true;
@@ -219,8 +219,8 @@ class Page extends Model
             $category = PageCategory::find($id);
             $category->delete();
 
-            $this->status = true;
-            $this->msg = 'Page category deleted successfully!';
+            $this->status   = true;
+            $this->msg      = 'Page category deleted successfully!';
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);

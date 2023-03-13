@@ -115,10 +115,10 @@
                                                     class="input-group {!! $errors->has('page_url') ? 'error' : '' !!}">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-prepend">
-                                                            <div class="input-group-text" id="btnGroupAddon2">{{ env('APP_URL') . '/page/' }}</div>
+                                                            <div class="input-group-text" id="btnGroupAddon2">{{ URL('/') . '/page/' }}</div>
                                                         </div>
                                                     </div>
-                                                    {!! Form::text('page_url', old('page_url', substr($data['page']->url_slug, strlen(env('APP_URL') . '/page/'))), ['class'=>'form-control','data-validation-required-message' => 'This field is required', 'placeholder'=>'Page URL']) !!}
+                                                    {!! Form::text('page_url', old('page_url', $data['page']->url_slug), ['class'=>'form-control','data-validation-required-message' => 'This field is required', 'placeholder'=>'Page URL']) !!}
                                                     {!! $errors->first('page_url', '<label class="help-block text-danger">:message</label>') !!}
                                                 </div>
                                             </div>

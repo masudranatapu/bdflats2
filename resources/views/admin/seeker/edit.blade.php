@@ -46,7 +46,7 @@
 
 @endpush
 
-@push('custom_js')
+@push('script')
     <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
     <script src="{{asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
 

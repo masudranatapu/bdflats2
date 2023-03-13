@@ -292,14 +292,72 @@ class DataTbl extends Model
 
     public function getRefundRequest(Request $request)
     {
-        $this->resp = $this->datatable->getRefundRequest($request);
-        return $this->resp;
+        $status = $request->filter;
+        $dataSet = DB::table('acc_customer_refund')
+            ->select('acc_customer_refund.*', 'users.code as user_code', 'users.name as user_name', 'users.mobile_no as user_mobile_no', 'acc_customer_transaction.code as tid')
+            ->leftJoin('users', 'users.id', 'acc_customer_refund.F_USER_NO')
+            ->leftJoin('acc_customer_transaction', 'acc_customer_transaction.f_listing_lead_payment_no', 'acc_customer_refund.f_listing_lead_payment_no');
+        if ($status) {
+            $dataSet = $dataSet->where('acc_customer_refund.status', '=', $status);
+        }
+        $dataSet = $dataSet->get();
+
+        return Datatables::of($dataSet)
+            ->addColumn('status', function ($dataSet) {
+                if ($dataSet->status == 1) {
+                    $status = '<span class="text-warning">Pending</span>';
+                } else if ($dataSet->status == 2) {
+                    $status = '<span class="text-success">Approved</span>';
+                } else {
+                    $status = '<span class="text-danger">Denied</span>';
+                }
+                return $status;
+            })
+            ->addColumn('action', function ($dataSet) {
+                $edit = '';
+                if (Auth::user()->can('admin.refund_request.edit')){
+                    $edit = ' <a href="' . route("admin.refund_request.edit", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-success mb-05 mr-05" title="Edit">Edit</a>';
+                }
+                return $edit;
+            })
+            ->rawColumns(['action', 'status'])
+            ->make(true);
     }
 
     public function getRechargeRequest(Request $request)
     {
-        $this->resp = $this->datatable->getRechargeRequest($request);
-        return $this->resp;
+        $status = $request->filter;
+        $dataSet = DB::table('acc_recharge_request')
+            ->select('acc_recharge_request.*', 'c.name as c_name', 'c.code as c_code', 'c.mobile_no as c_mobile_no')
+            ->leftJoin('users AS c', 'c.id', '=', 'acc_recharge_request.f_customer_no')
+            ->orderByDesc('acc_recharge_request.id');
+        if ($status) {
+            if ($status == 3) $status = 0;
+            $dataSet = $dataSet->where('acc_recharge_request.status', '=', $status);
+        }
+        $dataSet = $dataSet->get();
+
+        return Datatables::of($dataSet)
+            ->addColumn('status', function ($dataSet) {
+                if ($dataSet->status == 0) {
+                    $status = '<span class="text-warning">Pending</span>';
+                } else if ($dataSet->status == 1) {
+                    $status = '<span class="text-success">Approved</span>';
+                } else {
+                    $status = '<span class="text-danger">Denied</span>';
+                }
+                return $status;
+            })
+            ->addColumn('action', function ($dataSet) {
+
+                $edit = '';
+                if (Auth::user()->can('admin.recharge_request.edit')){
+                    $edit = ' <a href="' . route('admin.recharge_request.edit', $dataSet->id) . '" class="btn btn-xs btn-success mb-05 mr-05" title="Edit">Edit</a>';
+                }
+                return $edit;
+            })
+            ->rawColumns(['action', 'status'])
+            ->make(true);
     }
 
 

@@ -7,13 +7,13 @@
 @section('page-name') Property Activities @endsection
 
 <!--push from page-->
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app-assets/file_upload/image-uploader.min.css')}}">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-tooltip.css')}}">
     <link rel="stylesheet" href="{{ asset('app-assets/lightgallery/dist/css/lightgallery.min.css') }}">
-@endpush('custom_css')
+@endpush('style')
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">@lang('product.breadcrumb_title')  </a></li>
@@ -217,7 +217,7 @@
 
 @endsection
 <!--push from page-->
-@push('custom_js')
+@push('script')
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
 
@@ -233,4 +233,4 @@
     <!--for image gallery-->
     <script src="{{ asset('app-assets/lightgallery/dist/js/lightgallery.min.js')}}"></script>
 
-@endpush('custom_js')
+@endpush('script')

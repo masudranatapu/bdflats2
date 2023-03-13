@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
 @section('Customer Management','open')
 @section('reseller_list','active')
@@ -12,14 +12,14 @@
 @endsection
 
 <!--push from page-->
-@push('custom_css')
+@push('style')
  <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/select2.min.css') }}">
  <style>
     #scrollable-dropdown-menu2 .tt-menu {max-height: 260px;overflow-y: auto;width: 100%;border: 1px solid #333;border-radius: 5px;}
     .twitter-typeahead{display: block !important;}
     .tt-hint {color: #999 !important;}
 </style>
-@endpush('custom_css')
+@endpush('style')
 
 @section('content')
     <div class="card card-success min-height">
@@ -235,9 +235,9 @@
 @endsection
 
 <!--push from page-->
-@push('custom_js')
+@push('script')
  <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
  <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
  <script type="text/javascript" src="{{ asset('app-assets/pages/country.js') }}"></script>
-@endpush('custom_js')
+@endpush('script')

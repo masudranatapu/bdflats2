@@ -7,7 +7,7 @@
 @section('page-name') Property | View @endsection
 
 <!--push from page-->
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/select2.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('app-assets/file_upload/image-uploader.min.css')}}">
@@ -19,7 +19,7 @@
         a.ui-state-default{background-color:red!important}
         .ctm{min-width: 140px; display: inline-block;}
     </style>
-@endpush('custom_css')
+@endpush('style')
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">@lang('product.breadcrumb_title')  </a></li>
@@ -227,4 +227,4 @@
     <!--for image gallery-->
     <script src="{{ asset('app-assets/lightgallery/dist/js/lightgallery.min.js')}}"></script>
 
-@endpush('custom_js')
+@endpush('script')

@@ -12,7 +12,7 @@
     <li class="breadcrumb-item active">Recharge Balance</li>
 @endsection
 
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{asset('/custom/css/custom.css')}}">
     <link rel="stylesheet" type="text/css"
           href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
@@ -27,7 +27,7 @@
     </style>
 @endpush
 
-@push('custom_js')
+@push('script')
 
     <!-- BEGIN: Data Table-->
     <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
