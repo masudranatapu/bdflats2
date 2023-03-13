@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
 @section('pages-list','active')
 
@@ -10,7 +10,7 @@
     <li class="breadcrumb-item active">Pages | Create</li>
 @endsection
 
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{asset('/custom/css/custom.css')}}">
     <link rel="stylesheet" type="text/css"
           href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
@@ -18,7 +18,7 @@
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 @endpush
 
-@push('custom_js')
+@push('script')
 
     <!-- BEGIN: Data Table-->
     <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>

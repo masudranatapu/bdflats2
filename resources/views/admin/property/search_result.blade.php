@@ -1,10 +1,10 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
-@push('custom_css')
+@push('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/select2.min.css') }}">
 
 
-@endpush('custom_css')
+@endpush('style')
 
 @section('Product Management','open')
 @section('add_product','active')
@@ -46,7 +46,7 @@ $shipping_method_combo = [
                   <div class="card-body">
                   @include('admin.components._product_search_inner')
                 </div>
-                    
+
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@ $shipping_method_combo = [
 
 @endsection
 
-@push('custom_js')
+@push('script')
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
 <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
 

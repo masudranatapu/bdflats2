@@ -1,5 +1,5 @@
-@extends('admin.layout.master')
-@push('custom_css')
+@extends('admin.layouts.master')
+@push('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-tooltip.css')}}">
 @endpush
 
@@ -39,6 +39,6 @@
 </div>
 @endsection
 
-@push('custom_js')
+@push('script')
 <script src="{{ asset('app-assets/js/scripts/tooltip/tooltip.js')}}"></script>
 @endpush

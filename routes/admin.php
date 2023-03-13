@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataTableController;
 use App\Http\Controllers\Admin\PermissionsController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ListingPriceController;
 use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 
@@ -97,24 +98,28 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('agents-earnings/{id}', [AgentsController::class, 'getEarnings'])->name('agents.earnings');
     Route::get('agents-withdraw_credit', [AgentsController::class, 'getWithdrawCredit'])->name('agents.withdraw_credit');
     Route::post('agents_list', [DataTableController::class, 'getAgents'])->name('agents.list');
-    // Transaction
-    Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
-    Route::get('transaction/create', [TransactionController::class, 'create'])->name('transaction.create');
-    Route::post('transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
-    Route::get('transaction/{id}/edit', [TransactionController::class, 'edit'])->name('transaction.edit');
-    Route::post('transaction/{id}/update', [TransactionController::class, 'update'])->name('transaction.update');
-    Route::post('transaction/{id}/destroy', [TransactionController::class, 'destroy'])->name('transaction.destroy');
-    // refund request
+
+
+
+
+    Route::get('transaction', [TransactionController::class, 'getIndex'])->name('transaction.index');
+    Route::get('transaction/create', [TransactionController::class, 'getCreate'])->name('transaction.create');
+    Route::post('transaction/store', [TransactionController::class, 'postStore'])->name('transaction.store');
+    Route::get('transaction/{id}/edit', [TransactionController::class, 'getEdit'])->name('transaction.edit');
+    Route::post('transaction/{id}/update', [TransactionController::class, 'postUpdate'])->name('transaction.update');
+    Route::post('transaction/{id}/destroy', [TransactionController::class, 'getDelete'])->name('transaction.destroy');
+
+
     Route::get('refund-request', [TransactionController::class,'getRefundRequest'])->name('refund_request');
     Route::get('refund-request/{id}/edit', [TransactionController::class,'editRefundRequest'])->name('refund_request.edit');
     Route::post('refund-request/{id}/update', [TransactionController::class,'updateRefundRequest'])->name('refund_request.update');
-    Route::post('refund_request', [DataTableController::class, 'getRefundRequest'])->name('refund_request.list');
-    // recharge request
+    Route::post('refund-request', [DataTableController::class, 'getRefundRequest'])->name('refund_request.list');
+
+
     Route::get('recharge-request', [TransactionController::class,'getRechargeRequest'])->name('recharge_request');
     Route::get('recharge-request/{id}/edit', [TransactionController::class,'editRechargeRequest'])->name('recharge_request.edit');
     Route::post('recharge-request/{id}/update', [TransactionController::class,'updateRechargeRequest'])->name('recharge_request.update');
     Route::post('recharge_request', [DataTableController::class, 'getRechargeRequest'])->name('recharge_request.list');
-    // agent commission
     Route::get('agent-commission', [TransactionController::class, 'getAgentCommission'])->name('agent_commission');
     //Pages
     Route::get('pages', [PagesController::class, 'getIndex'])->name('pages.index');

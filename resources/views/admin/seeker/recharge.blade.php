@@ -12,12 +12,23 @@
     <li class="breadcrumb-item active">Recharge Balance</li>
 @endsection
 
+<<<<<<< HEAD
 @push('custom_css')
     <link rel="stylesheet" type="text/css" href="{{ asset('/custom/css/custom.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/image_upload/image-uploader.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/forms/datepicker/bootstrap-datetimepicker.min.css') }}">
+=======
+@push('style')
+    <link rel="stylesheet" type="text/css" href="{{asset('/custom/css/custom.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/assets/css/image_upload/image-uploader.min.css')}}">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('/assets/css/forms/datepicker/bootstrap-datetimepicker.min.css')}}">
+>>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
     <style>
         .ui-datepicker .ui-widget-content {
             background: #999 none;
@@ -25,6 +36,38 @@
     </style>
 @endpush
 
+<<<<<<< HEAD
+=======
+@push('script')
+
+    <!-- BEGIN: Data Table-->
+    <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
+    <script src="{{asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
+    <!-- END: Data Table-->
+    <script src="{{asset('/assets/css/image_upload/image-uploader.min.js')}}"></script>
+    <script src="{{asset('/assets/js/forms/datepicker/moment.min.js')}}"></script>
+    <script src="{{asset('/assets/js/forms/datepicker/bootstrap-datetimepicker.min.js')}}"></script>
+    <script>
+        $('#imageFile').imageUploader();
+        $('.datepicker').datetimepicker({
+            icons:
+                {
+                    next: 'fa fa-angle-right',
+                    previous: 'fa fa-angle-left'
+                },
+            format: 'DD-MM-YYYY'
+        });
+    </script>
+@endpush
+
+@php
+
+    $payment_methods = $data['paymentMethods'] ?? [];
+    $payment_type = [1 => 'Customer Payment', 2 => 'Bonus Payment'];
+    $tabIndex = 0;
+@endphp
+
+>>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
 @section('content')
     @php
         $payment_methods = $data['paymentMethods'] ?? [];

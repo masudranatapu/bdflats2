@@ -201,9 +201,16 @@
     </style>
 @endpush
 
+<<<<<<< HEAD
 @push('custom_js')
     <script src="{{ asset('/app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js') }}"></script>
+=======
+@push('script')
+    <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
+    <script src="{{asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
+
+>>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
 @endpush
 
 @section('content')

@@ -12,7 +12,12 @@
     Property | View
 @endsection
 
+<<<<<<< HEAD
 @push('custom_css')
+=======
+<!--push from page-->
+@push('style')
+>>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/select2.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('app-assets/file_upload/image-uploader.min.css') }}">
@@ -33,7 +38,11 @@
             display: inline-block;
         }
     </style>
+<<<<<<< HEAD
 @endpush
+=======
+@endpush('style')
+>>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">@lang('product.breadcrumb_title') </a></li>
@@ -269,5 +278,11 @@
     <script src="{{ asset('app-assets/js/scripts/tooltip/tooltip.js') }}"></script>
 
     <!--for image gallery-->
+<<<<<<< HEAD
     <script src="{{ asset('app-assets/lightgallery/dist/js/lightgallery.min.js') }}"></script>
 @endpush('custom_js')
+=======
+    <script src="{{ asset('app-assets/lightgallery/dist/js/lightgallery.min.js')}}"></script>
+
+@endpush('script')
+>>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0

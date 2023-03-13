@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
 @section('Sales Agent','open')
 @section('agent_list','active')
@@ -12,7 +12,7 @@
 @endsection
 
 <!--push from page-->
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/selects/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('/assets/css/image_upload/image-uploader.min.css')}}">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -168,7 +168,7 @@
 @endsection
 
 <!--push from page-->
-@push('custom_js')
+@push('script')
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
     <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
     <script src="{{asset('/assets/css/image_upload/image-uploader.min.js')}}"></script>
