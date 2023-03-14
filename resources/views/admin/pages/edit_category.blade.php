@@ -104,10 +104,10 @@
                                         <div class="col-md-12">
                                             <div class="form-group {!! $errors->has('status') ? 'error' : '' !!}">
                                                 <div class="controls">
-                                                    {!! Form::radio('status','1', $data['category']->in_active == 1,[ 'id' => 'active','data-validation-required-message' => 'This field is required','checked'=>'checked']) !!}
+                                                    {!! Form::radio('status','1', $data['category']->is_active == 1,[ 'id' => 'active','data-validation-required-message' => 'This field is required','checked'=>'checked']) !!}
                                                     {{ Form::label('active','Active') }}
 
-                                                    {!! Form::radio('status','0', $data['category']->in_active == 0,[ 'id' => 'inactive']) !!}
+                                                    {!! Form::radio('status','0', $data['category']->is_active == 0,[ 'id' => 'inactive']) !!}
                                                     {{ Form::label('inactive','Inactive') }}
                                                     {!! $errors->first('status', '<label class="help-block text-danger">:message</label>') !!}
                                                 </div>

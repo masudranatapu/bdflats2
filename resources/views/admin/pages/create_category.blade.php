@@ -12,7 +12,6 @@
 @endsection
 
 @section('content')
-    @dd($property_for);
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">

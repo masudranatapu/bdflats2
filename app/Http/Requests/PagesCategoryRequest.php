@@ -29,7 +29,7 @@ class PagesCategoryRequest extends FormRequest
             'meta_keywords' => 'required',
             'meta_description' => 'required',
             'order_id' => 'required',
-            'property_for' => 'required',
+            // 'property_for' => 'required',
         ];
     }
 }
