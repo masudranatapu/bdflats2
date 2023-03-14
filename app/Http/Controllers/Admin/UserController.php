@@ -19,9 +19,10 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Admin\StoreUserRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -436,36 +437,8 @@ class UserController extends Controller
     // Delete User
     public function deleteUser(Request $request)
     {
-        $user = Admin::where('id', $request->query('id'))->first();
-        if($user->is_delete==1){
-            $user_cards = BusinessCard::where('user_id', $user->id)->get();
-            foreach ($user_cards as $key => $value) {
-                BusinessField::where('card_id', $value->id)->delete();
-            }
-            Transaction::where('user_id', $user->id)->delete();
-            BusinessCard::where('user_id', $user->id)->delete();
-            Admin::where('id', $user->id)->delete();
-        }else{
-            $user_cards = BusinessCard::where('user_id', $user->id)->get();
-            foreach ($user_cards as $key => $value) {
-                BusinessField::where('card_id', $value->id)->update([
-                    'status'=> 2,
-                ]);
-            }
-            BusinessCard::where('user_id', $user->id)->update([
-                'status'=> 2,
-                'is_deleted' => 1,
-                'deleted_at' => date('Y-m-d H:i:s'),
-                'deleted_by' => Auth::user()->id
-            ]);
-            DB::table('users')->where('id',$user->id)->update([
-                'email'=>$user->id.'-'.$user->email,
-                'status'=> 2,
-                'is_delete' => 1,
-                'deleted_at' => date('Y-m-d H:i:s'),
-                'deleted_by' => Auth::user()->id
-            ]);
-        }
+
+        dd($request);
         Toastr::success(trans('User deleted Successfully!!'), 'Success', ["positionClass" => "toast-top-center"]);
         return redirect()->route('admin.users');
     }

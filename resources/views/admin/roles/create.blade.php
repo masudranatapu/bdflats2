@@ -133,7 +133,7 @@
 
 </div>
 @endsection
-@push('scripts')
+@push('script')
 <script>
     $('#permission_all').click(function() {
             if ($(this).is(':checked')) {
