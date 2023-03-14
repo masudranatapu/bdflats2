@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\PagesRequest;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\RedirectResponse;
 
 
@@ -50,18 +51,24 @@ class PagesController extends Controller
     public function postStore(PagesRequest $request)
     {
         $this->resp = $this->pages->storePage($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function postUpdate(PagesRequest $request, $id)
     {
         $this->resp = $this->pages->updatePage($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getDelete($id)
     {
         $this->resp = $this->pages->deletePage($id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 }
