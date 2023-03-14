@@ -55,7 +55,8 @@
                                             <h3 class="font-weight-bold">BDT 15000</h3>
                                         </div>
                                         {!! Form::open([
-                                            /* 'route' => 'agent-withdraw', */ 'method' => 'post',
+                                            'route' => 'agent-withdraw',
+                                            'method' => 'post',
                                             'class' => 'form-horizontal',
                                             'files' => true,
                                             'novalidate',

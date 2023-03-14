@@ -91,7 +91,7 @@ class User extends Authenticatable
             }
             foreach ($rc as $item) {
                 $item = explode(',', $item);
-        //      $condF[] = intval($item[0]);
+                //      $condF[] = intval($item[0]);
                 $condF[] = "$item[0]";
                 $cond[] = $item[1];
             }
@@ -131,40 +131,40 @@ class User extends Authenticatable
             $user->status       = $request->acc_status;
             $user->update();
 
-             //share to developer company
+            //share to developer company
             if ($request->v_status == 1 && $request->acc_status == 1) {
                 $req = ProductRequirements::find($list->id);
                 $property_for       = $req->PROPERTY_FOR;
                 $property_type      = $req->f_property_type_no;
-                $size_min           = $req->min_size-1000;
-                $size_max           = $req->max_size+1000;
+                $size_min           = $req->min_size - 1000;
+                $size_max           = $req->max_size + 1000;
                 $property_condition = json_decode($req->f_property_condition);
                 $area_nos = json_decode($req->f_areas);
 
 
-                $listings =  Product::select('prd_listings.id','prd_listings.f_user_no','prd_listing_variants.property_size')
-                ->join('prd_listing_variants', 'prd_listing_variants.f_listing_no', 'prd_listings.id')
-                ->join('users', 'users.id', 'prd_listings.f_user_no')
-                ->where('prd_listings.status',10)
-                ->where('prd_listings.payment_status',1)
-                ->where('prd_listings.property_for',$property_for)
-                ->where('prd_listings.f_property_type_no',$property_type)
-                ->whereIn('prd_listings.f_area_no',$area_nos)
-                ->whereBetween('prd_listing_variants.property_size', [$size_min,$size_max]);
-                if($property_condition){
-                    $listings->whereIn('prd_listings.f_property_condition',$property_condition);
+                $listings =  Product::select('prd_listings.id', 'prd_listings.f_user_no', 'prd_listing_variants.property_size')
+                    ->join('prd_listing_variants', 'prd_listing_variants.f_listing_no', 'prd_listings.id')
+                    ->join('users', 'users.id', 'prd_listings.f_user_no')
+                    ->where('prd_listings.status', 10)
+                    ->where('prd_listings.payment_status', 1)
+                    ->where('prd_listings.property_for', $property_for)
+                    ->where('prd_listings.f_property_type_no', $property_type)
+                    ->whereIn('prd_listings.f_area_no', $area_nos)
+                    ->whereBetween('prd_listing_variants.property_size', [$size_min, $size_max]);
+                if ($property_condition) {
+                    $listings->whereIn('prd_listings.f_property_condition', $property_condition);
                 }
-                $listings = $listings->where('users.status',1)
-                ->groupBy('prd_listings.id')
-                ->orderBy('prd_listings.modified_at', 'desc')
-                ->get();
-                if($listings && count($listings) > 0 ){
+                $listings = $listings->where('users.status', 1)
+                    ->groupBy('prd_listings.id')
+                    ->orderBy('prd_listings.modified_at', 'desc')
+                    ->get();
+                if ($listings && count($listings) > 0) {
                     $max_share = 0;
                     foreach ($listings as $key => $value) {
-                        DB::table('prd_lead_share_map')->where('f_user_no',$list->f_user_no)->where('f_company_no',$value->f_user_no)->where('status',0)->where('lead_type',0)->delete();
-                        $check_old = DB::table('prd_lead_share_map')->where('f_user_no',$list->f_user_no)->where('f_company_no',$value->f_user_no)->first();
-                        if($check_old == null){
-                            $order_id = 1+$key;
+                        DB::table('prd_lead_share_map')->where('f_user_no', $list->f_user_no)->where('f_company_no', $value->f_user_no)->where('status', 0)->where('lead_type', 0)->delete();
+                        $check_old = DB::table('prd_lead_share_map')->where('f_user_no', $list->f_user_no)->where('f_company_no', $value->f_user_no)->first();
+                        if ($check_old == null) {
+                            $order_id = 1 + $key;
                             $max_share++;
                             DB::table('prd_lead_share_map')->insert([
                                 'f_requirement_no'  => $req->id,
@@ -177,13 +177,12 @@ class User extends Authenticatable
                                 'order_id'          => $order_id
                             ]);
 
-                            if($max_share > $list->max_sharing_permission ){ break;}
-
+                            if ($max_share > $list->max_sharing_permission) {
+                                break;
+                            }
                         }
-
                     }
                 }
-
             }
             //END share to developer company
 
@@ -258,14 +257,9 @@ class User extends Authenticatable
     {
         try {
             $data = Transaction::with(['payment'])->where('f_customer_no', $id)->get();
-
         } catch (\Throwable $th) {
             return $this->formatResponse(false, 'Data not found', 'admin.seeker.list');
         }
         return $this->formatResponse(true, 'Payment list found successfully !', 'admin.seeker.list', $data);
-
     }
-
-
-
 }

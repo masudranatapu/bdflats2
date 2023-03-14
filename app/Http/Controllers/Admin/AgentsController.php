@@ -7,7 +7,7 @@ use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\AgentRequest;
-
+use Brian2694\Toastr\Facades\Toastr;
 
 class AgentsController extends BaseController
 {
@@ -50,7 +50,8 @@ class AgentsController extends BaseController
     public function postUpdate(AgentRequest $request, $id)
     {
         $this->resp = $this->agent->postUpdate($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
     }
 
     public function getDelete($id)

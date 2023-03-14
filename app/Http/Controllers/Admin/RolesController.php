@@ -71,8 +71,6 @@ class RolesController extends Controller
         try {
             CreateRole::create($request);
 
-            Toastr::success('Role created successfully');
-            return redirect()->route('admin.roles.index');
             // flashSuccess('Role Created Successfully');
 
         } catch (\Throwable $th) {
@@ -83,7 +81,11 @@ class RolesController extends Controller
         }
 
         DB::commit();
-        return back();
+
+        Toastr::success('Role created successfully');
+        return redirect()->route('admin.roles.index');
+
+        // return back();
 
         // return redirect()->route('admin.roles.index')
         //                 ->with('success','Role created successfully');

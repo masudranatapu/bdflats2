@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
 use App\Models\Area;
 use App\Models\City;
 use App\Models\PropertyCondition;
@@ -16,7 +15,8 @@ use App\Models\ProductRequirements;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RechargeRequest;
 use App\Http\Controllers\BaseController;
-
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 
 class SeekerController extends BaseController
 {
@@ -79,7 +79,10 @@ class SeekerController extends BaseController
     public function postUpdate(Request $request): RedirectResponse
     {
         $this->resp = $this->customer->postUpdate($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
     }
 
     public function getPayment(Request $request, $id)

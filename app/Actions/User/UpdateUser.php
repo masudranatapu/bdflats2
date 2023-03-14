@@ -8,6 +8,7 @@ class UpdateUser
     {
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->status = $request->status;
         // if ($image = $request->image) {
         //     $url = uploadImage($image, 'user');
         //     $user->image = $url;

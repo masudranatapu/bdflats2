@@ -55,11 +55,11 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $users = Admin::where('user_type', '2')->orderBy('created_at', 'desc')->where('status','!=',2);
-        if($request->date){
-            $users->whereDate('created_at','=',date('Y-m-d', strtotime($request->date)));
+        $users = Admin::where('user_type', '2')->orderBy('created_at', 'desc')->where('status', '!=', 2);
+        if ($request->date) {
+            $users->whereDate('created_at', '=', date('Y-m-d', strtotime($request->date)));
         }
-        $users = $users->orderBy('users.name','ASC')->get();
+        $users = $users->orderBy('users.name', 'ASC')->get();
         $settings = Setting::where('status', 1)->first();
         $config = DB::table('config')->get();
 
@@ -100,7 +100,6 @@ class UserController extends Controller
         try {
             $user = Admin::find($id);
             UpdateUser::update($request, $user);
-
         } catch (\Throwable $th) {
 
             // dd($th);
@@ -109,7 +108,8 @@ class UserController extends Controller
         }
 
         DB::commit();
-        return redirect()->route('admin.user.index') ->withSuccess(__('User updated successfully.'));
+        Toastr::success('User updated successfully.');
+        return redirect()->route('admin.user.index');
     }
 
     // View User
@@ -119,7 +119,7 @@ class UserController extends Controller
         if ($user_details == null) {
             return view('errors.404');
         } else {
-            $user_cards = BusinessCard::where('user_id',$id)->where('status','!=',2)->orderBy('card_url','asc')->get();
+            $user_cards = BusinessCard::where('user_id', $id)->where('status', '!=', 2)->orderBy('card_url', 'asc')->get();
             $settings = Setting::where('status', 1)->first();
             return view('admin.users.view-user', compact('user_details', 'user_cards', 'settings'));
         }
@@ -143,52 +143,50 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required',
-            'full_name' => 'required',
-            'email' => 'required'
-        ]);
-        $user = Admin::where('id', $request->user_id)->first();
-        $user->email = $request->email;
-        $user->name = $request->full_name;
-        if(!empty($request->password)){
-            $user->password = Hash::make($request->password);
-        }
-        $user->plan_validity = $request->plan_validity;
-        if(isset($request->no_of_vcards)){
-            $plan_details = json_decode($user->plan_details);
-            $plan_array = [];
-            foreach ($plan_details as $key => $value) {
-                    if($key=='no_of_vcards'){
+            $validator = Validator::make($request->all(), [
+                'user_id' => 'required',
+                'full_name' => 'required',
+                'email' => 'required'
+            ]);
+            $user = Admin::where('id', $request->user_id)->first();
+            $user->email = $request->email;
+            $user->name = $request->full_name;
+            if (!empty($request->password)) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->plan_validity = $request->plan_validity;
+            if (isset($request->no_of_vcards)) {
+                $plan_details = json_decode($user->plan_details);
+                $plan_array = [];
+                foreach ($plan_details as $key => $value) {
+                    if ($key == 'no_of_vcards') {
                         $plan_array[$key] = $request->no_of_vcards;
-                    }
-                    else{
+                    } else {
                         $plan_array[$key] = $value;
                     }
+                }
+                $user->plan_details = json_encode($plan_array);
             }
-            $user->plan_details = json_encode($plan_array);
+            $user->billing_address = $request->billing_address;
+            $user->billing_city = $request->billing_city;
+            $user->billing_state = $request->billing_state;
+            $user->billing_zipcode = $request->billing_zipcode;
+            $user->billing_country = $request->billing_country;
+            $user->phone = $request->phone;
+            $user->designation = $request->designation;
+            $user->company_name = $request->company_name;
+            $user->company_websitelink = $request->company_websitelink;
+            $user->status = $request->status;
+            $user->user_type = $request->user_type;
+            $user->update();
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            DB::rollback();
+            Toastr::error('User not updated!');
+            return redirect()->route('admin.users');
         }
-        $user->billing_address = $request->billing_address;
-        $user->billing_city = $request->billing_city;
-        $user->billing_state = $request->billing_state;
-        $user->billing_zipcode = $request->billing_zipcode;
-        $user->billing_country = $request->billing_country;
-        $user->phone = $request->phone;
-        $user->designation = $request->designation;
-        $user->company_name = $request->company_name;
-        $user->company_websitelink = $request->company_websitelink;
-        $user->status = $request->status;
-        $user->user_type = $request->user_type;
-        $user->update();
-
-    } catch (\Exception $e) {
-        dd($e->getMessage());
-        DB::rollback();
-        Toastr::error(trans('User not updated!'), 'Error', ["positionClass" => "toast-top-center"]);
-        return redirect()->route('admin.users');
-    }
         DB::commit();
-        Toastr::success(trans('User updated Successfully!'), 'Success', ["positionClass" => "toast-top-center"]);
+        Toastr::success('User updated Successfully!');
         return redirect()->route('admin.users');
     }
 
@@ -301,8 +299,9 @@ class UserController extends Controller
             try {
                 Mail::to($user_details->email)->send(new SendEmailInvoice($details));
             } catch (\Exception $e) {
+                dd($e);
             }
-            Toastr::success(trans('Plan changed success!'), 'Title', ["positionClass" => "toast-top-center"]);
+            Toastr::success('Plan changed success!');
             return redirect()->route('admin.offline.transactions');
         } else {
             $message = "";
@@ -430,7 +429,7 @@ class UserController extends Controller
             $status = 0;
         }
         Admin::where('id', $request->query('id'))->update(['status' => $status]);
-        Toastr::success(trans('User Status Updated Successfully!'), 'Success', ["positionClass" => "toast-top-center"]);
+        Toastr::success('User Status Updated Successfully!');
         return redirect()->route('admin.users');
     }
 
@@ -439,7 +438,7 @@ class UserController extends Controller
     {
 
         dd($request);
-        Toastr::success(trans('User deleted Successfully!!'), 'Success', ["positionClass" => "toast-top-center"]);
+        Toastr::success('User deleted Successfully!');
         return redirect()->route('admin.users');
     }
 
@@ -451,13 +450,15 @@ class UserController extends Controller
             Auth::loginUsingId($user_details->id);
             return redirect()->route('dashboard');
         } else {
-            return redirect()->route('admin.users')->with('info', 'User account was not found!');
+
+            Toastr::info('User account was not found!');
+            return redirect()->route('admin.users');
         }
     }
 
     public function getTrashList()
     {
-        $users = Admin::where('user_type', '2')->orderBy('deleted_at', 'desc')->where('status',2)->get();
+        $users = Admin::where('user_type', '2')->orderBy('deleted_at', 'desc')->where('status', 2)->get();
 
         $settings = Setting::where('status', 1)->first();
         $config = DB::table('config')->get();
@@ -466,42 +467,45 @@ class UserController extends Controller
 
 
 
-    public function activeStatus(Request $request,$id)
+    public function activeStatus(Request $request, $id)
     {
         $user = Admin::findOrFail($id);
-        if(empty($user)){
-            Toastr::error(trans('Account not found !'), 'Success', ["positionClass" => "toast-top-center"]);
+        if (empty($user)) {
+            Toastr::error('Account not found !');
             return redirect()->back();
         }
-        $trim_email = trim($user->email,$user->id.'-');
-        $check_exist = Admin::where('email',$trim_email)->where('id','!=',$user->id)->first();
-        if(!empty($check_exist)){
-            Toastr::error(trans('Already have an account by this email address !'), 'Success', ["positionClass" => "toast-top-center"]);
+        $trim_email = trim($user->email, $user->id . '-');
+        $check_exist = Admin::where('email', $trim_email)->where('id', '!=', $user->id)->first();
+
+        if (!empty($check_exist)) {
+            Toastr::error('Already have an account by this email address !');
             return redirect()->back();
         }
+
         $user_cards = BusinessCard::where('user_id', $id)->get();
-            foreach ($user_cards as $key => $value) {
-                BusinessField::where('card_id', $value->id)->where('status',2)->update([
-                    'status'=> 1,
-                ]);
-            }
-            BusinessCard::where('user_id', $id)->where('status',2)->update([
-                'status'=> 1,
-                'is_deleted' => 0,
-                'deleted_at' => NULL,
-                'deleted_by' => NULL
+        foreach ($user_cards as $key => $value) {
+            BusinessField::where('card_id', $value->id)->where('status', 2)->update([
+                'status' => 1,
             ]);
-            DB::table('users')->where('id',$id)->update([
-                'email'=> $trim_email,
-                'status'=> 1,
-                'is_delete' => 0,
-                'deleted_at' => NULL,
-                'deleted_by' => NULL
-            ]);
-        Toastr::success(trans('User Status Updated Successfully!'), 'Success', ["positionClass" => "toast-top-center"]);
+        }
+
+        BusinessCard::where('user_id', $id)->where('status', 2)->update([
+            'status' => 1,
+            'is_deleted' => 0,
+            'deleted_at' => NULL,
+            'deleted_by' => NULL
+        ]);
+
+        DB::table('users')->where('id', $id)->update([
+            'email' => $trim_email,
+            'status' => 1,
+            'is_delete' => 0,
+            'deleted_at' => NULL,
+            'deleted_by' => NULL
+        ]);
+
+        Toastr::success('User Status Updated Successfully!');
         return redirect()->route('admin.users');
+
     }
-
-
-
 }

@@ -49,16 +49,6 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        @if(session()->has('flashMessageSuccess'))
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <i class="fa fa-times"  style="color: white;" ></i>
-                                </button>
-                                {{ session()->get('flashMessageSuccess') }}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="m-0">

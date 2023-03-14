@@ -12,8 +12,7 @@ use App\Http\Requests\OwnerRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RechargeRequest;
 use App\Http\Controllers\BaseController;
-
-
+use Brian2694\Toastr\Facades\Toastr;
 
 class OwnerController extends BaseController
 {
@@ -55,7 +54,9 @@ class OwnerController extends BaseController
     {
         $this->resp = $this->owner->postUpdate($request, $id);
         // dd($this->resp->redirect_class);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getPasswordEdit($id)
@@ -95,7 +96,8 @@ class OwnerController extends BaseController
     public function postRecharge(RechargeRequest $request, $id): RedirectResponse
     {
         $this->resp = $this->owner->postRecharge($request, $id);
-        return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+        return redirect()->back();
     }
 
     public function postPayment(Request $request, $id)

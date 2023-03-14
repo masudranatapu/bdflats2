@@ -44,6 +44,7 @@
                                             <th width="5%">#</th>
                                             <th>{{ __('name') }}</th>
                                             <th>{{ __('email') }}</th>
+                                            <th>{{ __('status') }}</th>
                                             <th>{{ __('roles') }}</th>
                                             @if (Auth::user()->can('admin.user.edit') || Auth::user()->can('admin.user.delete'))
                                                 <th width="10%">{{ __('action') }}</th>
@@ -57,6 +58,13 @@
                                                 <td>{{ $row->name }}</td>
                                                 <td>{{ $row->email }}</td>
                                                 <td>
+                                                    @if($row->status == 1)
+                                                        <span class="badge bg-success">Actve</span>
+                                                    @else
+                                                        <span class="badge bg-info">Inactve</span>
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     @foreach ($row->roles as $role)
                                                         <span class="badge badge-primary">{{ $role->name }}</span>
                                                     @endforeach
@@ -69,13 +77,13 @@
                                                             Edit
                                                         </a>
                                                     @endif
-                                                    @if (Auth::user()->can('admin.user.destroy'))
+                                                    {{-- @if (Auth::user()->can('admin.user.destroy'))
                                                         <a href="{{ route('admin.user.destroy', [$row->id]) }}"
                                                             class="btn btn-sm btn-danger "
                                                             onclick="return confirm('Are you sure you want to delete?')"
                                                             title="DELETE"><i class="la la-trash"></i>
                                                             {{ __('Delete') }}</a>
-                                                    @endif
+                                                    @endif --}}
                                                 </td>
                                             </tr>
                                         @empty
