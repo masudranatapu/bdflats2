@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Actions\Role\CreateRole;
 use App\Actions\Role\UpdateRole;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
+use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller
 {
@@ -36,8 +36,8 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('admin.roles.index',compact('roles'))
+        $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        return view('admin.roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -51,7 +51,7 @@ class RolesController extends Controller
         $permissions = Permission::all();
         $permission_groups = Admin::getPermissionGroup();
 
-        return view('admin.roles.create', compact('permissions','permission_groups'));
+        return view('admin.roles.create', compact('permissions', 'permission_groups'));
     }
 
     /**
@@ -71,6 +71,8 @@ class RolesController extends Controller
         try {
             CreateRole::create($request);
 
+            Toastr::success('Role created successfully');
+            return redirect()->route('admin.roles.index');
             // flashSuccess('Role Created Successfully');
 
         } catch (\Throwable $th) {
@@ -82,6 +84,7 @@ class RolesController extends Controller
 
         DB::commit();
         return back();
+
         // return redirect()->route('admin.roles.index')
         //                 ->with('success','Role created successfully');
     }
@@ -123,7 +126,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
 
         // if (is_null($this->user) || !$this->user->can('role.edit')) {
@@ -134,15 +137,15 @@ class RolesController extends Controller
         try {
             $role = Role::find($id);
             UpdateRole::update($request, $role);
-
         } catch (\Throwable $th) {
             dd($th->getMessage());
             DB::rollback();
             return back();
         }
-        DB::commit();
 
-        return redirect()->route('admin.roles.index')->with('success','Role updated successfully');
+        DB::commit();
+        Toastr::success('Role updated successfully');
+        return redirect()->route('admin.roles.index');
     }
 
     /**
@@ -158,7 +161,7 @@ class RolesController extends Controller
 
         $role->delete();
 
-        return redirect()->route('admin.roles.index')->with('success','Role deleted successfully');
+        Toastr::success('Role deleted successfully');
+        return redirect()->route('admin.roles.index');
     }
-
 }
