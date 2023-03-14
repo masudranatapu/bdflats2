@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PagesCategoryRequest;
-use App\Repositories\Admin\Pages\PagesInterface;
+use App\Models\Page;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\RedirectResponse;
 
 class PagesCategoryController extends Controller
@@ -12,7 +13,7 @@ class PagesCategoryController extends Controller
     protected $pages;
     protected $resp;
 
-    public function __construct(PagesInterface $pages)
+    public function __construct(Page $pages)
     {
         $this->middleware('auth');
         $this->pages = $pages;
@@ -32,7 +33,9 @@ class PagesCategoryController extends Controller
     public function postStore(PagesCategoryRequest $request): RedirectResponse
     {
         $this->resp = $this->pages->storePagesCategory($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success( $this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit($id)
@@ -44,12 +47,16 @@ class PagesCategoryController extends Controller
     public function postUpdate(PagesCategoryRequest $request, $id): RedirectResponse
     {
         $this->resp = $this->pages->updatePagesCategory($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success( $this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getDelete($id): RedirectResponse
     {
         $this->resp = $this->pages->deletePagesCategory($id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success( $this->resp->msg);
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 }

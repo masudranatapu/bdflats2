@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-     use RepoResponse;
+    use RepoResponse;
     protected $table = 'web_search_pages';
     protected $primaryKey = 'id';
 
@@ -53,7 +53,7 @@ class Page extends Model
 
         DB::beginTransaction();
         try {
-            $page = new Pages();
+            $page = new Page();
             $page->f_page_category_no   = $request->page_category;
             $page->title                = $request->page_title;
             $page->url_slug             = $request->page_url;
@@ -162,7 +162,7 @@ class Page extends Model
 
         DB::beginTransaction();
         try {
-            $category = new PagesCategory();
+            $category = new PageCategory();
             $category->name             = $request->category_name;
             $category->is_active        = $request->status;
             $category->meta_keywards    = $request->meta_keywords;
