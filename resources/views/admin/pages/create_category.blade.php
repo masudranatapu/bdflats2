@@ -11,6 +11,15 @@
     <li class="breadcrumb-item active">Pages Category</li>
 @endsection
 
+@php
+
+$property_for = [
+    'sell' => 'Sell',
+    'rent' => 'Rent',
+    'roommate' => 'Roommate'
+];
+@endphp
+
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
