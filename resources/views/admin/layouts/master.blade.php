@@ -53,6 +53,7 @@
     {{-- toastr javascript --}}
     <script src="{{ asset('massage/toastr/toastr.js') }}"></script>
     {!! Toastr::message() !!}
+
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
