@@ -33,7 +33,8 @@
                             <h5 class="m-0">{{ __('Admin permissions list') }}
                                 <span class="float-right">
                                     <a href="{{ route('admin.permissions.create') }}" class="btn btn-sm btn-primary">+
-                                        Add new</a>
+                                        Add new
+                                    </a>
                                 </span>
                             </h5>
                         </div>

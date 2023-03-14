@@ -30,12 +30,15 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="m-0">{{ __('Admin role create') }}</h5>
-                            <span class="float-right">
-                                <a href="{{ route('admin.roles.index') }}" class="btn btn-sm btn-primary">
-                                    <<i class="fa fa-arrow-left"></i>
-                                </a>
-                            </span>
+                            <h5 class="m-0">
+                                {{ __('Admin role create') }}
+                                <span class="float-right">
+                                    <a href="{{ route('admin.roles.index') }}" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Back
+                                    </a>
+                                </span>
+                            </h5>
                         </div>
                         <div class="card-body">
 

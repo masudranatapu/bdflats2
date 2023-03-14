@@ -54,6 +54,7 @@ class OwnerController extends BaseController
     public function postUpdate(OwnerRequest $request, $id): RedirectResponse
     {
         $this->resp = $this->owner->postUpdate($request, $id);
+        // dd($this->resp->redirect_class);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 

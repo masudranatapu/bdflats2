@@ -30,10 +30,12 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="m-0">{{ __('Admin permissions create') }}
+                            <h5 class="m-0">
+                                {{ __('Admin permissions create') }}
                                 <span class="float-right">
-                                    <a href="{{ route('admin.permissions.create') }}" class="btn btn-sm btn-primary">
-                                        <<i class="fa fa-arrow-left"></i>
+                                    <a href="{{ route('admin.permissions.index') }}" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Back
                                     </a>
                                 </span>
                             </h5>

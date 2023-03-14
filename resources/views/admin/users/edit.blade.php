@@ -32,20 +32,20 @@ $tabindex = 1;
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="m-0">{{ __('Admin user create') }}</h5>
-                            <span class="float-right">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-primary">
-                                    <<i class="fa fa-arrow-left"></i>
-                                </a>
-                            </span>
+                            <h5 class="m-0">
+                                {{ __('Admin user create') }}
+                                <span class="float-right">
+                                    <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Back
+                                    </a>
+                                </span>
+                            </h5>
                         </div>
                         <div class="card-body">
-
                             <form method="post" action="{{ route('admin.user.update', $user->id) }}">
                                 @csrf
-
                                 <input type="hidden" name="id" value="{{ $user->id }}" />
-
                                 <div class="mb-3">
                                     <div class="form-group {!! $errors->has('image') ? 'error' : '' !!}">
                                         <label class="active">image <span class="text-danger">*</span></label>

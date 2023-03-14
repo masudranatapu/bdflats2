@@ -32,8 +32,6 @@ class SeekerController extends BaseController
 
     public function getIndex(Request $request)
     {
-
-
         $data = [];
         // $this->resp = $this->customer->getPaginatedList($request);
         // $data['rows'] = $this->resp->data;
