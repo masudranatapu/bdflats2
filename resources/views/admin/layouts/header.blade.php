@@ -10,7 +10,7 @@
             </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('admin.cacheClear') }}" class="nav-link">
+            <a href="{{ route('cc') }}" class="nav-link">
                 <i class="fas fa-broom"></i>
             </a>
         </li>

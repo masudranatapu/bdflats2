@@ -21,16 +21,9 @@
     </li>
 @endsection
 
-<<<<<<< HEAD
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-=======
-@push('style')
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
->>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
     <style>
         .switch {
             position: relative;
@@ -174,12 +167,7 @@
     </style>
 @endpush
 
-<<<<<<< HEAD
-@push('custom_js')
-=======
 @push('script')
-
->>>>>>> 54d964903f478ed45375f1b1fe3eb976c22274f0
     <!-- BEGIN: Data Table-->
     <script src="{{ asset('/app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js') }}"></script>
