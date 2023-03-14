@@ -120,7 +120,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.pages-category.list') }}" class="nav-link @yield('pages-category')">
                                 <i class="fas fa-cog nav-icon"></i>
-                                <p>Pages List</p>
+                                <p>Pages Category</p>
                             </a>
                         </li>
                     </ul>

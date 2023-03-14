@@ -42,7 +42,8 @@
                             <div class="card-header">
                                 <h5 class="m-0">
                                     {{ __('Pages list') }}
-                                    <a href="{{ route('admin.pages.create') }}" class="btn btn-success btn-sm float-right">Add New</a>
+                                    <a href="{{ route('admin.pages.create') }}"
+                                        class="btn btn-success btn-sm float-right">Add New</a>
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -76,7 +77,6 @@
                                                                     <td class="text-danger">Inactive</td>
                                                                 @endif
                                                                 <td>
-
                                                                     @if (Auth::user()->can('admin.pages.edit'))
                                                                         <a href="{{ route('admin.pages.edit', $page->id) }}"
                                                                             class="btn btn-sm btn-warning">

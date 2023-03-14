@@ -59,11 +59,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="m-0">{{ __('Pages Edit') }}</h5>
-                            <span class="float-right">
-                                <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary">All Users</a>
-                                <a href="{{ route('admin.roles.create') }}" class="btn btn-sm btn-primary">+ Create
-                                    Role</a>
-                            </span>
                         </div>
                         <div class="card-body">
                             <div class="row  mb-2">
