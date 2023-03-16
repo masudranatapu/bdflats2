@@ -49,10 +49,10 @@
                                     {!! Form::open(['route' => 'admin.transaction.index', 'method' => 'get']) !!}
                                     <div class="col-md-12">
                                         <div class="row form-group">
-                                            <div class="col-md-2">
+                                            <div class="col-md-12">
                                                 {!! Form::label('transaction_type', 'Transaction Type', ['class' => 'lable-title']) !!}
                                             </div>
-                                            <div class="col-md-10">
+                                            <div class="col-md-12">
                                                 <div class="controls">
                                                     {!! Form::radio(
                                                         'transaction_type',
@@ -118,7 +118,7 @@
                                     </div>
                                     {!! Form::close() !!}
                                     <div class="col-md-12">
-                                        <table class="table table-striped table-bordered text-center" id="empTable">
+                                        <table class="table table-striped table-bordered text-center" id="dtable">
                                             <thead>
                                                 <tr>
                                                     <th>SL</th>
@@ -126,8 +126,8 @@
                                                     <th>TID</th>
                                                     <th>Date</th>
                                                     <th>Transaction Type</th>
-                                                    <th>Note</th>
                                                     <th>Amount</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -148,9 +148,31 @@
 @push('script')
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        let get_url = $('#base_url').val();
+
         $(document).ready(function() {
-            $('#empTable').DataTable({
+            var value = getCookie('transaction_list');
+
+            if (value !== null) {
+                var value = (value - 1) * 25;
+                // table.fnPageChange(value,true);
+            } else {
+                var value = 0;
+            }
+            var table = callDatatable(value);
+
+        });
+
+        function callDatatable(value) {
+            return $('#dtable').dataTable({
                 processing: false,
+                serverSide: true,
                 paging: true,
                 pageLength: 25,
                 lengthChange: true,
@@ -158,40 +180,96 @@
                 ordering: true,
                 info: true,
                 autoWidth: false,
-                serverSide: true,
+                iDisplayStart: value,
                 ajax: {
-                    url: "{{ route('admin.transaction_list') }}",
-                    type: 'GET',
+                    url: get_url + '/admin/transaction_list',
+                    type: 'POST',
                     data: function(d) {
                         d._token = "{{ csrf_token() }}";
-                        d.transactionType = {{ request()->query('transaction_type') ?? 'null' }};
-                        d.fromDate = {{ request()->query('from_date') ?? 'null' }};
-                        d.toDate = {{ request()->query('to_date') ?? 'null' }};
-                    }
+                        d.transaction_type = `{{ request()->query('transaction_type') }}`;
+                        d.from_date = `{{ request()->query('from_date') }}`;
+                        d.to_date = `{{ request()->query('to_date') }}`;
+
+                    },
+
                 },
                 columns: [{
-                        data: 'id'
+                        data: 'id',
+                        name: 'id',
+                        searchable: false,
+                        sortable: false,
+                        className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
                     },
                     {
-                        data: 'user_id'
+                        data: 'c_code',
+                        name: 'c_code',
+                        className: 'text-center',
+                        searchable: true
                     },
                     {
-                        data: 'tid'
+                        data: 'code',
+                        name: 'code',
+                        searchable: true
                     },
                     {
-                        data: 'date'
+                        data: 'transaction_date',
+                        name: 'transaction_date',
+                        searchable: true,
+                    },
+
+                    {
+                        data: 'transaction_type',
+                        name: 'transaction_type',
+                        searchable: true,
                     },
                     {
-                        data: 'transaction_type'
+                        data: 'amount',
+                        name: 'amount',
+                        searchable: true,
+
                     },
+
                     {
-                        data: 'note'
+                        data: 'action',
+                        name: 'action',
+                        className: 'text-center',
+                        searchable: false
                     },
-                    {
-                        data: 'amount'
-                    },
+
                 ]
             });
+        }
+
+        let formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'BDT'
         });
     </script>
+
+    <script>
+        $(document).on('click', '.paginate_button', function() {
+            let pageNum = $(this).text();
+            setCookie('transaction_list', pageNum);
+        });
+
+        function setCookie(transaction_list, pageNum) {
+            let today = new Date();
+            let name = transaction_list;
+            let elementValue = pageNum;
+            let expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000); // plus 30 days
+
+            document.cookie = name + "=" + elementValue + "; path=/; expires=" + expiry.toGMTString();
+        }
+
+        function getCookie(name) {
+            let re = new RegExp(name + "=([^;]+)");
+            let value = re.exec(document.cookie);
+            return (value != null) ? unescape(value[1]) : null;
+        }
+    </script>
+
+
 @endpush

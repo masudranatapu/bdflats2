@@ -65,6 +65,8 @@
         @endif
     </script>
 
+
+
     {{-- <script>
         $('#dataTables').DataTable();
     </script> --}}
@@ -100,6 +102,7 @@
 
     {{-- custom js area --}}
     @stack('script')
+
 
 </body>
 

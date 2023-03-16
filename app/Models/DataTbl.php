@@ -363,6 +363,52 @@ class DataTbl extends Model
     }
 
 
+    public function getTransactionList(Request $request)
+    {
+        $status = $request->filter;
+        $dataSet = DB::table('acc_customer_transaction')
+            ->select('acc_customer_transaction.*', 'c.name as c_name', 'c.code as c_code', 'c.mobile_no as c_mobile_no')
+            ->leftJoin('users AS c', 'c.id', '=', 'acc_customer_transaction.f_customer_no')
+            ->orderByDesc('acc_customer_transaction.id');
+
+        dd($request->all());
+
+        $dataSet = $dataSet->get();
+
+        return Datatables::of($dataSet)
+
+
+            ->addColumn('transaction_type', function ($dataSet) {
+                if ($dataSet->transaction_type == 1) {
+                    $transaction_type = '<span class="text-warning">recharge</span>';
+                } else if ($dataSet->transaction_type == 2) {
+                    $transaction_type = '<span class="text-success">property payment</span>';
+                }else if ($dataSet->transaction_type == 3) {
+                    $transaction_type = '<span class="text-success">listing lead purchase payment</span>';
+                }else if ($dataSet->transaction_type == 4) {
+                    $transaction_type = '<span class="text-success">agent commisiion</span>';
+                }else if ($dataSet->transaction_type == 5) {
+                    $transaction_type = '<span class="text-success">lead purchase payment</span>';
+                }
+
+                return $transaction_type;
+            })
+
+            ->addColumn('action', function ($dataSet) {
+
+                $edit = '';
+
+                return $edit;
+            })
+            ->rawColumns(['action', 'transaction_type'])
+            ->make(true);
+
+    }
+
+
+
+
+
     // public function all_customer()
     // {
     //     $this->resp = $this->datatable->getDatatableCustomer();
