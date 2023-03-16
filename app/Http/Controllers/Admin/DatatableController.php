@@ -54,6 +54,13 @@ class DatatableController extends BaseController
     }
 
 
+    public function getTransactionList(Request $request)
+    {
+        $this->resp = $this->datatable->getTransactionList($request);
+        return $this->resp;
+    }
+
+
     /*
 
     public function all_customer()

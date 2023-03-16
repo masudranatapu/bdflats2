@@ -52,10 +52,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        @if(session()->has('flashMessageSuccess'))
+                        @if (session()->has('flashMessageSuccess'))
                             <div class="alert alert-success alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <i class="fa fa-times"  style="color: white;" ></i>
+                                    <i class="fa fa-times" style="color: white;"></i>
                                 </button>
                                 {{ session()->get('flashMessageSuccess') }}
                             </div>
@@ -182,7 +182,6 @@
                                 return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         },
-
                         {
                             data: 'code',
                             name: 'code',
@@ -267,6 +266,7 @@
             let pageNum = $(this).text();
             setCookie('owner_list', pageNum);
         });
+
         function setCookie(owner_list, pageNum) {
             let today = new Date();
             let name = owner_list;
@@ -275,6 +275,7 @@
 
             document.cookie = name + "=" + elementValue + "; path=/; expires=" + expiry.toGMTString();
         }
+
         function getCookie(name) {
             let re = new RegExp(name + "=([^;]+)");
             let value = re.exec(document.cookie);

@@ -117,15 +117,15 @@ class PaymentCustomer extends Model
             ->select('acc_customer_transaction.code', 'users.code as customer_no', 'acc_customer_transaction.transaction_date', 'acc_customer_transaction.transaction_type', 'acc_customer_transaction.amount', 'acc_customer_transaction.in_out')
             ->leftJoin('users', 'users.id', 'acc_customer_transaction.f_customer_no');
 
-        // $transactions = PaymentCustomer::with(['customer' => function ($query) {
-        //     $query->select('CODE');
-        // }])->take($limit);
-        // if ($date_from) {
-        //     $transactions->whereDate('PAYMENT_DATE', '>=', date('Y-m-d', strtotime($date_from)));
-        // }
-        // if ($date_to) {
-        //     $transactions->whereDate('PAYMENT_DATE', '<=', date('Y-m-d', strtotime($date_to)));
-        // }
+        $transactions = PaymentCustomer::with(['customer' => function ($query) {
+            $query->select('CODE');
+        }])->take(100);
+        if ($date_from) {
+            $transactions->whereDate('PAYMENT_DATE', '>=', date('Y-m-d', strtotime($date_from)));
+        }
+        if ($date_to) {
+            $transactions->whereDate('PAYMENT_DATE', '<=', date('Y-m-d', strtotime($date_to)));
+        }
 
         return $data->orderBy('acc_customer_transaction.id', 'desc')->get();
     }

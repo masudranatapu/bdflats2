@@ -101,6 +101,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('agents_list', [DataTableController::class, 'getAgents'])->name('agents.list');
 
     Route::get('transaction', [TransactionController::class, 'getIndex'])->name('transaction.index');
+    Route::get('transaction_list', [TransactionController::class, 'getTransactionList'])->name('transaction_list');
     Route::get('transaction/create', [TransactionController::class, 'getCreate'])->name('transaction.create');
     Route::post('transaction/store', [TransactionController::class, 'postStore'])->name('transaction.store');
     Route::get('transaction/{id}/edit', [TransactionController::class, 'getEdit'])->name('transaction.edit');
