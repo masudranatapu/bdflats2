@@ -2,21 +2,44 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+
+use App\Traits\RepoResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 class WebAds extends Model
 {
+    use RepoResponse;
+
     protected $table = 'prd_ads';
     protected $primaryKey = 'id';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'modified_at';
 
-    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public static function boot()
     {
-        return $this->hasMany('App\Models\WebAdsImage', 'f_ads_no', 'id')
-            ->inRandomOrder(time());
+        parent::boot();
+        static::creating(function ($model) {
+            $model->created_by = Auth::id();
+        });
+
+        static::updating(function ($model) {
+            $model->modified_by = Auth::id();
+        });
     }
+
+    public function position()
+    {
+        return $this->hasOne('App\Models\AdsPosition', 'position_id', 'f_ad_position_no');
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\Models\AdsImages', 'f_ads_no', 'id')->orderByDesc('order_id');
+    }
+
+
 
     public function getRandomAd($position_id)
     {
@@ -28,4 +51,212 @@ class WebAds extends Model
             ->inRandomOrder(time())
             ->first();
     }
+
+
+    public function getPaginatedList($request)
+    {
+        $data = WebAds::with(['position', 'images'])->orderBy('id', 'asc')->get();
+        return $this->formatResponse(true, '', 'web.ads', $data);
+    }
+
+    public function storeAd($request)
+    {
+        $status = false;
+        $msg = 'Ad could not be added!';
+
+        DB::beginTransaction();
+        try {
+            $ad = new WebAds();
+            $ad->f_ad_position_no       = $request->position;
+            $ad->available_to           = date('Y-m-d', strtotime($request->end_date));
+            $ad->available_from         = date('Y-m-d', strtotime($request->start_date));
+            $ad->status                 = $request->status;
+            $ad->save();
+
+            $status     = true;
+            $msg        = 'Add added successfully!';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads');
+    }
+
+    public function editAd($id)
+    {
+        $data['positions'] = $this->adsPosition->orderBy('id', 'asc')->pluck('name', 'position_id');
+        $data['ad'] = WebAds::find($id);
+        return $this->formatResponse(true, '', 'web.ads', $data);
+    }
+
+    public function updateAd($request, $id)
+    {
+        $status = false;
+        $msg    = 'Ad could not be updated!';
+
+        DB::beginTransaction();
+        try {
+            $ad = WebAds::find($id);
+            $ad->f_ad_position_no   = $request->position;
+            $ad->available_to       = date('Y-m-d', strtotime($request->end_date));
+            $ad->available_from     = date('Y-m-d', strtotime($request->start_date));
+            $ad->status             = $request->status;
+            $ad->save();
+
+            $status     = true;
+            $msg        = 'Add updated successfully!';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads');
+    }
+
+    public function getAdsPositions($request)
+    {
+        $data = $this->adsPosition->orderBy('id', 'asc')->get();
+        return $this->formatResponse(true, '', 'web.ads_position', $data);
+    }
+
+    public function getAdsPosition(int $id)
+    {
+        return AdsPosition::find($id);
+    }
+
+    public function storeAdsPosition($request)
+    {
+        $status     = false;
+        $msg        = 'Could not add ads position!';
+
+        DB::beginTransaction();
+        try {
+            $adsPosition = new AdsPosition();
+            $adsPosition->name          = $request->name;
+            $adsPosition->position_id   = $request->position;
+            $adsPosition->is_active     = $request->status;
+            $adsPosition->save();
+
+            $status     = true;
+            $msg        = 'Ads position added';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads_position');
+    }
+
+    public function updateAdsPosition($request, $id)
+    {
+        $status     = false;
+        $msg        = 'Could not update ads position!';
+
+        DB::beginTransaction();
+        try {
+            $adsPosition = $this->getAdsPosition($id);
+            $adsPosition->name          = $request->name;
+            $adsPosition->position_id   = $request->position;
+            $adsPosition->is_active     = $request->status;
+            $adsPosition->save();
+
+            $status     = true;
+            $msg        = 'Ads position updated';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads_position');
+    }
+
+    public function getAdsImages($id)
+    {
+        $data['images'] = $this->adsImages->where('f_ads_no', $id)->orderByDesc('order_id')->get();
+        $data['id'] = $id;
+        return $this->formatResponse(true, '', 'web.ads.images', $data);
+    }
+
+    public function storeAdsImages($request, $id)
+    {
+        $status     = false;
+        $msg        = 'Image could not be added!';
+
+        DB::beginTransaction();
+        try {
+            $adImg = new AdsImages();
+            $adImg->f_ads_no    = $id;
+            $adImg->order_id    = $request->order_id;
+            $adImg->url         = $request->url;
+
+            $image      = $request->file('images')[0];
+            $imageName  = uniqid() . '.' . $image->getClientOriginalExtension();
+            $imagePath  = '/uploads/ads/' . $id . '/';
+            $image->move(public_path($imagePath), $imageName);
+
+            $adImg->image_path = $imagePath . $imageName;
+            $adImg->save();
+
+            $status     = true;
+            $msg        = 'Image added successfully!';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads.image');
+    }
+
+    public function updateAdsImage($request)
+    {
+        $status     = false;
+        $msg        = 'Image order could not be update!';
+
+        DB::beginTransaction();
+        try {
+            $adImg = AdsImages::find($request->id);
+            $adImg->order_id    = $request->order_id;
+            $adImg->url         = $request->url;
+            $adImg->save();
+
+            $status     = true;
+            $msg        = 'Image order updated successfully!';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads.image');
+    }
+
+    public function deleteAdsImage(int $id)
+    {
+        $status     = false;
+        $msg        = 'Image could not be deleted!';
+
+        DB::beginTransaction();
+        try {
+            $adImg = AdsImages::find($id);
+            $imageFile = $adImg->image_path;
+            $adImg->delete();
+            unlink(public_path($imageFile));
+
+            $status     = true;
+            $msg        = 'Image deleted successfully!';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads.image');
+    }
+
 }

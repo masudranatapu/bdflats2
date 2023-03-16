@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\AdsPositionRequest;
-use App\Http\Requests\AdsRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\WebAds;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdsRequest;
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\Ads\AdsInterface;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AdsPositionRequest;
 
-class AdsController extends Controller
+
+class WebAdsController extends Controller
 {
 
     protected $ads;
     protected $resp;
 
-    public function __construct(AdsInterface $ads)
+    public function __construct(WebAds $ads)
     {
         $this->ads = $ads;
     }

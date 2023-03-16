@@ -10,6 +10,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\Admin\WebAdsController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CityController;
@@ -27,8 +28,8 @@ use App\Http\Controllers\Admin\DataTableController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ListingPriceController;
-use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\Admin\PagesCategoryController;
+use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,20 +134,22 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('pages-category/{id}/update', [PagesCategoryController::class, 'postUpdate'])->name('pages-category.update');
     Route::get('pages-category/{id}/delete', [PagesCategoryController::class, 'getDelete'])->name('pages-category.delete');
     // Ads
-    Route::get('ads',[AdsController::class, 'getIndex'])->name('ads');
-    Route::get('ads/create',[AdsController::class, 'createAd'])->name('ads.create');
-    Route::post('ads/store',[AdsController::class, 'storeAd'])->name('ads.store');
-    Route::get('ads/{id}/edit',[AdsController::class, 'editAd'])->name('ads.edit');
-    Route::post('ads/{id}/update',[AdsController::class, 'updateAd'])->name('ads.update');
-    Route::get('ads/{id}/images',[AdsController::class, 'getAdsImages'])->name('ads-image');
-    Route::post('ads/{id}/images/store',[AdsController::class, 'storeAdsImage'])->name('ads-image.store');
-    Route::post('ads/{id}/images/update',[AdsController::class, 'updateAdsImage'])->name('ads-image.update');
-    Route::get('ads/{id}/images/delete',[AdsController::class, 'deleteAdsImage'])->name('ads-image.delete');
-    Route::get('ads_position',[AdsController::class, 'getAdsPosition'])->name('ads_position');
-    Route::get('ads_position/create',[AdsController::class, 'createAdsPosition'])->name('ads_position.create');
-    Route::post('ads_position/store',[AdsController::class, 'storeAdsPosition'])->name('ads_position.store');
-    Route::get('ads_position/{id}/edit',[AdsController::class, 'editAdsPosition'])->name('ads_position.edit');
-    Route::post('ads_position/{id}/update',[AdsController::class, 'updateAdsPosition'])->name('ads_position.update');
+    Route::get('ads',[WebAdsController::class, 'getIndex'])->name('ads');
+    Route::get('ads/create',[WebAdsController::class, 'createAd'])->name('ads.create');
+    Route::post('ads/store',[WebAdsController::class, 'storeAd'])->name('ads.store');
+    Route::get('ads/{id}/edit',[WebAdsController::class, 'editAd'])->name('ads.edit');
+    Route::post('ads/{id}/update',[WebAdsController::class, 'updateAd'])->name('ads.update');
+
+    Route::get('ads/{id}/images',[WebAdsController::class, 'getAdsImages'])->name('ads-image');
+    Route::post('ads/{id}/images/store',[WebAdsController::class, 'storeAdsImage'])->name('ads-image.store');
+    Route::post('ads/{id}/images/update',[WebAdsController::class, 'updateAdsImage'])->name('ads-image.update');
+    Route::get('ads/{id}/images/delete',[WebAdsController::class, 'deleteAdsImage'])->name('ads-image.delete');
+
+    Route::get('ads_position',[WebAdsController::class, 'getAdsPosition'])->name('ads_position');
+    Route::get('ads_position/create',[WebAdsController::class, 'createAdsPosition'])->name('ads_position.create');
+    Route::post('ads_position/store',[WebAdsController::class, 'storeAdsPosition'])->name('ads_position.store');
+    Route::get('ads_position/{id}/edit',[WebAdsController::class, 'editAdsPosition'])->name('ads_position.edit');
+    Route::post('ads_position/{id}/update',[WebAdsController::class, 'updateAdsPosition'])->name('ads_position.update');
     // city
     Route::get('city', [CityController::class, 'getIndex'])->name('city.list');
     Route::get('city/create', [CityController::class, 'getCreate'])->name('city.create');
