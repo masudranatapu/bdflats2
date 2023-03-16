@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\PaymentCustomer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
-use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\Facades\DataTables;
 
 class TransactionController extends BaseController
 {

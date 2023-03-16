@@ -96,9 +96,7 @@ class DataTbl extends Model
                 if (Auth::user()->can('admin.seeker.payment')){
                     $payment = ' <a href="' . route("admin.seeker.payment", ['id' => $dataSet->id]) . '" class="btn btn-xs btn-success mb-05 mr-05" title="View Payment">Payment</a>';
                 }
-
                 return $view . $edit . $payment;
-
             })
             ->rawColumns(['action', 'status','leadInfo'])
             ->make(true);
@@ -365,18 +363,40 @@ class DataTbl extends Model
 
     public function getTransactionList(Request $request)
     {
-        $status = $request->filter;
         $dataSet = DB::table('acc_customer_transaction')
             ->select('acc_customer_transaction.*', 'c.name as c_name', 'c.code as c_code', 'c.mobile_no as c_mobile_no')
             ->leftJoin('users AS c', 'c.id', '=', 'acc_customer_transaction.f_customer_no')
             ->orderByDesc('acc_customer_transaction.id');
 
-        dd($request->all());
+        if($request->transaction_type) {
+
+            if ($request->transaction_type == "recharge") {
+                $dataSet->where('transaction_type', 1)->get();
+            } else if ($request->transaction_type == "contact_view") {
+                $dataSet->where('transaction_type', 2)->get();
+            }else if ($request->transaction_type == "listing_ad") {
+                $dataSet->where('transaction_type', 3)->get();
+            }else if ($request->transaction_type == "commission") {
+                $dataSet->where('transaction_type', 4)->get();
+            }else if ($request->transaction_type == "lead_purchase") {
+                $dataSet->where('transaction_type', 5)->get();
+            }else {
+                $dataSet->get();
+            }
+
+        }
+
+        if($request->from_date) {
+            $dataSet->whereDate('transaction_date', date('y-m-d', strtotime($request->from_date)))->get();
+        }
+
+        if($request->to_date) {
+            $dataSet->whereDate('transaction_date', date('y-m-d', strtotime($request->to_date)))->get();
+        }
 
         $dataSet = $dataSet->get();
 
         return Datatables::of($dataSet)
-
 
             ->addColumn('transaction_type', function ($dataSet) {
                 if ($dataSet->transaction_type == 1) {

@@ -339,23 +339,23 @@
     </script>
 
     <script>
-        $(document).on('click', '.page-link', function() {
-            var pageNum = $(this).text();
-            setCookie('seeker_list', pageNum);
+        $(document).on('click', '.paginate_button', function() {
+            let pageNum = $(this).text();
+            setCookie('transaction_list', pageNum);
         });
 
-        function setCookie(seeker_list, pageNum) {
-            var today = new Date();
-            var name = seeker_list;
-            var elementValue = pageNum;
-            var expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000); // plus 30 days
+        function setCookie(transaction_list, pageNum) {
+            let today = new Date();
+            let name = transaction_list;
+            let elementValue = pageNum;
+            let expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000); // plus 30 days
 
             document.cookie = name + "=" + elementValue + "; path=/; expires=" + expiry.toGMTString();
         }
 
         function getCookie(name) {
-            var re = new RegExp(name + "=([^;]+)");
-            var value = re.exec(document.cookie);
+            let re = new RegExp(name + "=([^;]+)");
+            let value = re.exec(document.cookie);
             return (value != null) ? unescape(value[1]) : null;
         }
     </script>

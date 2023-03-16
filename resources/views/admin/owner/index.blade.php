@@ -52,10 +52,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        @if (session()->has('flashMessageSuccess'))
+                        @if(session()->has('flashMessageSuccess'))
                             <div class="alert alert-success alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <i class="fa fa-times" style="color: white;"></i>
+                                    <i class="fa fa-times"  style="color: white;" ></i>
                                 </button>
                                 {{ session()->get('flashMessageSuccess') }}
                             </div>
@@ -128,7 +128,6 @@
 @push('script')
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
-
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
@@ -136,19 +135,19 @@
             }
         });
 
-        let get_url = $('#base_url').val();
+        var get_url = $('#base_url').val();
 
         $(document).ready(function() {
-            let value = getCookie('owner_list');
+            var value = getCookie('owner_list');
 
             if (value !== null) {
-                let value = (value - 1) * 25;
+                var value = (value - 1) * 25;
                 // table.fnPageChange(value,true);
             } else {
-                let value = 0;
+                var value = 0;
             }
 
-            let table = callDatatable(value);
+            var table = callDatatable(value);
         });
 
         function callDatatable(value) {
@@ -182,6 +181,7 @@
                                 return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         },
+
                         {
                             data: 'code',
                             name: 'code',
@@ -266,7 +266,6 @@
             let pageNum = $(this).text();
             setCookie('owner_list', pageNum);
         });
-
         function setCookie(owner_list, pageNum) {
             let today = new Date();
             let name = owner_list;
@@ -275,7 +274,6 @@
 
             document.cookie = name + "=" + elementValue + "; path=/; expires=" + expiry.toGMTString();
         }
-
         function getCookie(name) {
             let re = new RegExp(name + "=([^;]+)");
             let value = re.exec(document.cookie);

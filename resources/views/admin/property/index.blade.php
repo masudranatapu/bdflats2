@@ -340,7 +340,7 @@
     </script>
 
     <script>
-        $(document).on('click', '.page-link', function() {
+        $(document).on('click', '.paginate_button', function() {
             let pageNum = $(this).text();
 
             setCookie('property_list', pageNum);

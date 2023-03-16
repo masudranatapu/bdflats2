@@ -8,6 +8,7 @@
 
 @push('style')
     <link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 @endpush
 
 @section('breadcrumb')
@@ -87,11 +88,10 @@
                                                     ]) !!}
                                                     {{ Form::label('commission', 'Commission') }}
                                                     &emsp;
-                                                    {!! Form::radio('transaction_type', 'refund', request()->query('transaction_type') == 'refund', [
+                                                    {{-- {!! Form::radio('transaction_type', 'refund', request()->query('transaction_type') == 'refund', [
                                                         'id' => 'refund',
                                                     ]) !!}
-                                                    {{ Form::label('refund', 'Refund') }}
-
+                                                    {{ Form::label('refund', 'Refund') }} --}}
                                                     {!! $errors->first('transaction_type', '<label class="help-block text-danger">:message</label>') !!}
                                                 </div>
                                             </div>
@@ -101,16 +101,18 @@
                                             <div class="col-md-10">
                                                 <div class="row" style="align-items: center">
                                                     <div class="col-md-3">
-                                                        {!! Form::date('from_date', request()->query->get('from_date'), ['class' => 'form-control']) !!}
+                                                        {!! Form::text('from_date', request()->query->get('from_date'), ['class' => 'form-control datepicker']) !!}
                                                     </div>
                                                     <div class="col-md-1 text-center">
                                                         <p>To</p>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        {!! Form::date('to_date', request()->query->get('to_date'), ['class' => 'form-control']) !!}
+                                                        {!! Form::text('to_date', request()->query->get('to_date'), ['class' => 'form-control datepicker']) !!}
                                                     </div>
                                                     <div class="col-md-3">
                                                         {!! Form::submit('Search', ['class' => 'btn btn-success']) !!}
+                                                        <a href="{{ route('admin.transaction.index') }}"
+                                                            class="btn btn-info">Reset</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,6 +149,12 @@
 
 @push('script')
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $(".datepicker").datepicker();
+        });
+    </script>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
@@ -270,6 +278,4 @@
             return (value != null) ? unescape(value[1]) : null;
         }
     </script>
-
-
 @endpush
