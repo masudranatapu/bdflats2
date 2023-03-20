@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
-@section('web_ads','menu-open')
-@section('ads','active')
+@section('Web Ads','menu-open')
+@section('ads_list','active')
 
 @section('title') Ads @endsection
 @section('page-name') Ads @endsection
@@ -32,13 +32,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ __('Admin roles') }}</h1>
+                    <h1 class="m-0">{{ __('Ad') }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('Admin roles') }}</li>
+                        <li class="breadcrumb-item active">{{ __('Ad') }}</li>
                     </ol>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="m-0">{{ __('Admin roles list') }}</h5>
+                            <h5 class="m-0">{{ __('Ad list') }}</h5>
                             <span class="float-right">
                                 <a href="{{ route('admin.ads') }}" class="btn btn-sm btn-primary">All Ads</a>
                                 <a href="{{ route('admin.ads.create') }}" class="btn btn-sm btn-primary">+ Create
@@ -100,6 +100,15 @@
                                                                        Edit
                                                                     </a>
                                                                 @endif
+
+                                                                @if (Auth::user()->can('admin.ads.delete'))
+                                                                <a class="btn btn-sm btn-danger text-white"
+                                                                   href="{{ route('admin.ads.delete', $row->id) }}"
+                                                                   title="Delete">
+                                                                   Delete
+                                                                </a>
+                                                            @endif
+
                                                             </td>
                                                         </tr>
                                                     @endforeach

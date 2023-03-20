@@ -34,7 +34,7 @@ class WebAdsController extends Controller
         return view('admin.ads.add_ad', compact('data'));
     }
 
-    public function storeAd(AdsRequest $request): RedirectResponse
+    public function storeAd(AdsRequest $request)
     {
         $this->resp = $this->ads->storeAd($request);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
@@ -46,7 +46,7 @@ class WebAdsController extends Controller
         return view('admin.ads.edit_ad', compact('data'));
     }
 
-    public function updateAd(AdsRequest $request, $id): RedirectResponse
+    public function updateAd(AdsRequest $request, $id)
     {
         $this->resp = $this->ads->updateAd($request, $id);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
@@ -56,6 +56,7 @@ class WebAdsController extends Controller
     public function getAdsPosition(Request $request)
     {
         $this->resp = $this->ads->getAdsPositions($request);
+        // dd($this->resp);
         $data['rows'] = $this->resp->data;
         return view('admin.ads.ad_position', compact('data'));
     }
@@ -65,7 +66,7 @@ class WebAdsController extends Controller
         return view('admin.ads.add_ad_position');
     }
 
-    public function storeAdsPosition(AdsPositionRequest $request): RedirectResponse
+    public function storeAdsPosition(AdsPositionRequest $request)
     {
         $this->resp = $this->ads->storeAdsPosition($request);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
@@ -77,7 +78,7 @@ class WebAdsController extends Controller
         return view('admin.ads.edit_ad_position', compact('data'));
     }
 
-    public function updateAdsPosition(AdsPositionRequest $request, $id): RedirectResponse
+    public function updateAdsPosition(AdsPositionRequest $request, $id)
     {
         $this->resp = $this->ads->updateAdsPosition($request, $id);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
@@ -86,12 +87,12 @@ class WebAdsController extends Controller
     // Ads Image
     public function getAdsImages($id)
     {
-        $data = $this->ads->getAdsImages($id)->data;
-        $data['id'] = $id;
-        return view('admin.ads.images', compact('data'));
+        $this->resp = $this->ads->getAdsImages($id);
+        $data['rows'] = $this->resp->data;
+        return view('admin.ads.images', compact('data','id'));
     }
 
-    public function storeAdsImage(Request $request, $id): RedirectResponse
+    public function storeAdsImage(Request $request, $id)
     {
         $request->validate([
             'order_id' => 'required',
@@ -104,7 +105,7 @@ class WebAdsController extends Controller
         return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
-    public function updateAdsImage(Request $request, $id): RedirectResponse
+    public function updateAdsImage(Request $request, $id)
     {
         $request->validate([
             'order_id' => 'required',
@@ -116,10 +117,26 @@ class WebAdsController extends Controller
         return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
-    public function deleteAdsImage($id): RedirectResponse
+    public function deleteAd($id)
+    {
+        $this->resp = $this->ads->deleteAd($id);
+        return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
+    }
+
+    public function deleteAdsImage($id)
     {
         $this->resp = $this->ads->deleteAdsImage($id);
         return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
     }
+
+
+    public function deleteAdsPosition($id)
+    {
+        $this->resp = $this->ads->deleteAdsPosition($id);
+        return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
+    }
+
+
+
 
 }

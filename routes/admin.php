@@ -139,6 +139,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('ads/store',[WebAdsController::class, 'storeAd'])->name('ads.store');
     Route::get('ads/{id}/edit',[WebAdsController::class, 'editAd'])->name('ads.edit');
     Route::post('ads/{id}/update',[WebAdsController::class, 'updateAd'])->name('ads.update');
+    Route::get('ads/{id}/delete',[WebAdsController::class, 'deleteAd'])->name('ads.delete');
 
     Route::get('ads/{id}/images',[WebAdsController::class, 'getAdsImages'])->name('ads-image');
     Route::post('ads/{id}/images/store',[WebAdsController::class, 'storeAdsImage'])->name('ads-image.store');
@@ -150,6 +151,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('ads_position/store',[WebAdsController::class, 'storeAdsPosition'])->name('ads_position.store');
     Route::get('ads_position/{id}/edit',[WebAdsController::class, 'editAdsPosition'])->name('ads_position.edit');
     Route::post('ads_position/{id}/update',[WebAdsController::class, 'updateAdsPosition'])->name('ads_position.update');
+    Route::post('ads_position/{id}/delete',[WebAdsController::class, 'deleteAdsPosition'])->name('ads_position.delete');
     // city
     Route::get('city', [CityController::class, 'getIndex'])->name('city.list');
     Route::get('city/create', [CityController::class, 'getCreate'])->name('city.create');

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 
+use App\Models\AdsPosition;
+use App\Models\WebAdsImage;
 use App\Traits\RepoResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -86,7 +88,7 @@ class WebAds extends Model
 
     public function editAd($id)
     {
-        $data['positions'] = $this->adsPosition->orderBy('id', 'asc')->pluck('name', 'position_id');
+        $data['positions'] = AdsPosition::orderBy('id', 'asc')->pluck('name', 'position_id');
         $data['ad'] = WebAds::find($id);
         return $this->formatResponse(true, '', 'web.ads', $data);
     }
@@ -118,7 +120,7 @@ class WebAds extends Model
 
     public function getAdsPositions($request)
     {
-        $data = $this->adsPosition->orderBy('id', 'asc')->get();
+        $data = AdsPosition::orderBy('id', 'asc')->get();
         return $this->formatResponse(true, '', 'web.ads_position', $data);
     }
 
@@ -172,20 +174,20 @@ class WebAds extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($status, $msg, 'web.ads_position');
+        return $this->formatResponse($status, $msg, 'admin.ads_position');
     }
 
     public function getAdsImages($id)
     {
-        $data['images'] = $this->adsImages->where('f_ads_no', $id)->orderByDesc('order_id')->get();
-        $data['id'] = $id;
-        return $this->formatResponse(true, '', 'web.ads.images', $data);
+        $data = WebAdsImage::where('f_ads_no', $id)->orderByDesc('order_id')->get();
+
+        return $this->formatResponse(true, '', 'admin.ads-image', $data);
     }
 
     public function storeAdsImages($request, $id)
     {
         $status     = false;
-        $msg        = 'Image could not be added!';
+        $msg        = 'Data could not be added!';
 
         DB::beginTransaction();
         try {
@@ -236,10 +238,47 @@ class WebAds extends Model
         return $this->formatResponse($status, $msg, 'web.ads.image');
     }
 
+
+
+    public function deleteAd(int $id)
+    {
+        $status     = false;
+        $msg        = 'Data could not be deleted!';
+
+        DB::beginTransaction();
+        try {
+            $data = WebAds::find($id);
+            if($data){
+                $adImgs = AdsImages::where('f_ads_no',$id)->get();
+                if($adImgs){
+                    foreach ($adImgs as $key => $value) {
+                        $adImg = AdsImages::find($value->id);
+                        $imageFile = $adImg->image_path;
+                        $adImg->delete();
+                        if (file_exists(public_path($imageFile))){
+                            unlink(public_path($imageFile));
+                        }
+                    }
+                }
+            }
+            $data->delete();
+            $status     = true;
+            $msg        = 'Ad deleted successfully!';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // dd($e);
+
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'admin.ads');
+    }
+
+
     public function deleteAdsImage(int $id)
     {
         $status     = false;
-        $msg        = 'Image could not be deleted!';
+        $msg        = 'Data could not be deleted!';
 
         DB::beginTransaction();
         try {
@@ -258,5 +297,33 @@ class WebAds extends Model
         DB::commit();
         return $this->formatResponse($status, $msg, 'web.ads.image');
     }
+
+
+    public function deleteAdsPosition(int $id)
+    {
+        $status     = false;
+        $msg        = 'Data could not be deleted!';
+
+        DB::beginTransaction();
+        try {
+            $adImg = AdsPosition::find($id);
+
+            if($adImg);
+
+            $adImg->delete();
+
+
+            $status     = true;
+            $msg        = 'Image deleted successfully!';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+        DB::commit();
+        return $this->formatResponse($status, $msg, 'web.ads.image');
+    }
+
+
 
 }

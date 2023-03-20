@@ -132,7 +132,7 @@
                     </a>
                     <ul class="nav nav-treeview @yield('Web Ads')">
                         <li class="nav-item">
-                            <a href="{{ route('admin.ads') }}" class="nav-link @yield('property_list')">
+                            <a href="{{ route('admin.ads') }}" class="nav-link @yield('ads_list')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <p>Ads</p>
                             </a>

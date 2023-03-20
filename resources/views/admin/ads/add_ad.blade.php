@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
-@section('web_ads','open')
-@section('ads','active')
+@section('Web Ads','menu-open')
+@section('ads_list','active')
 
 @section('title') Ads | Create @endsection
 @section('page-name') Ads | Create @endsection
@@ -11,14 +11,14 @@
     <li class="breadcrumb-item active">Ads</li>
 @endsection
 
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{asset('/custom/css/custom.css')}}">
     <link rel="stylesheet" type="text/css"
           href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/assets/css/forms/datepicker/bootstrap-datetimepicker.min.css')}}">
 @endpush
 
-@push('custom_js')
+@push('script')
 
     <!-- BEGIN: Data Table-->
     <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
@@ -107,7 +107,7 @@ $status = [
     </div>
 @endsection
 
-@push('custom_js')
+@push('script')
     <script src="{{asset('/assets/js/forms/datepicker/moment.min.js')}}"></script>
     <script src="{{asset('/assets/js/forms/datepicker/bootstrap-datetimepicker.min.js')}}"></script>
     <script>

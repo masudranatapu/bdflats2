@@ -1,6 +1,6 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
-@section('web_ads','open')
+@section('Web Ads','menu-open')
 @section('ads_position','active')
 
 @section('title') Ads Position | Create @endsection
@@ -11,13 +11,13 @@
     <li class="breadcrumb-item active">Ads Position</li>
 @endsection
 
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{asset('/custom/css/custom.css')}}">
     <link rel="stylesheet" type="text/css"
           href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endpush
 
-@push('custom_js')
+@push('script')
 
     <!-- BEGIN: Data Table-->
     <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
@@ -26,7 +26,7 @@
 @endpush
 
 @php
-    $roles = userRolePermissionArray();
+
 $status = [
     1 => 'Active',
     0 => 'In active'
@@ -34,23 +34,38 @@ $status = [
 @endphp
 
 @section('content')
-    <div class="content-body min-height">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-success">
-                    <div class="card-header">
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                <li><a data-action="close"><i class="ft-x"></i></a></li>
-                            </ul>
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">{{ __('Ad position') }}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ __('Ad position') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="m-0">{{ __('Ad position list') }}</h5>
+                            <span class="float-right">
+                                <a href="{{ route('admin.user.index') }}" class="btn btn-sm btn-primary">All Users</a>
+                                <a href="{{ route('admin.roles.create') }}" class="btn btn-sm btn-primary">+ Create
+                                    Role</a>
+                            </span>
                         </div>
-                    </div>
-                    <div class="card-content">
                         <div class="card-body">
-                            {!! Form::open([ 'route' => 'web.ads_position.store', 'method' => 'post', 'files' => true , 'novalidate', 'autocomplete' => 'off']) !!}
+                            {!! Form::open([ 'route' => 'admin.ads_position.store', 'method' => 'post', 'files' => true , 'novalidate', 'autocomplete' => 'off']) !!}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group {!! $errors->has('name') ? 'error' : '' !!}">
@@ -82,7 +97,7 @@ $status = [
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="{{ route('web.ads_position')}}">
+                                    <a href="{{ route('admin.ads_position')}}">
                                         <button type="button" class="btn btn-warning mr-1">
                                             <i class="ft-x"></i> Cancel
                                         </button>
@@ -94,9 +109,12 @@ $status = [
                             </div>
                             {!! Form::close() !!}
                         </div>
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
