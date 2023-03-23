@@ -159,33 +159,85 @@
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item @yield('settings_menu') ">
                     <a href="{{ route('admin.settings') }}" class="nav-link ">
-                        {{-- <i class="far fa-envelope"></i> --}}
                         <i class="nav-icon fa fa-gear"></i>
-                        <p>Settings<i class="fas fa-angle-left right"></i></p>
+                        <p>Panel Settings<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview @yield('settings_menu')">
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.settings.general') }}"
-                                class="nav-link @yield('general')">
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.propertycategory')}}" class="nav-link @yield('property_list')">
                                 <i class="fas fa-cog nav-icon"></i>
-                                <p>General Settings</p>
+                                <span>Property Categories</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.settings.language') }}" class="nav-link">
-                                <i class="fas fa-globe nav-icon"></i>
-                                <p>Language</p>
+                            <a href="{{route('admin.property.condition')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Condition</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.settings.Smtp.mail') }}"
-                                class="nav-link">
-                                <i class="fas fa-envelope nav-icon"></i>
-                                <p>SMTP</p>
+                            <a href="{{route('admin.propertyfeatures')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Features</span>
                             </a>
-                        </li> --}}
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.nearbyarea')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>NearBy</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.propertyfloor')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Floor</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.propertyfacing')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Facing</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.city.list')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>City or Division</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.area.list')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Area</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.listing_price.list') }}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Pricing</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.payment_method.list')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Payment Method</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.payment_acc.list')}}" class="nav-link @yield('property_list')">
+                                <i class="fas fa-cog nav-icon"></i>
+                                <span>Payment Account</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
                 <li class="nav-item"><a href="{{ route('admin.user.index') }}"

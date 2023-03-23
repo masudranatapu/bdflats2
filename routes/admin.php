@@ -152,6 +152,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('ads_position/{id}/edit',[WebAdsController::class, 'editAdsPosition'])->name('ads_position.edit');
     Route::post('ads_position/{id}/update',[WebAdsController::class, 'updateAdsPosition'])->name('ads_position.update');
     Route::post('ads_position/{id}/delete',[WebAdsController::class, 'deleteAdsPosition'])->name('ads_position.delete');
+
     // city
     Route::get('city', [CityController::class, 'getIndex'])->name('city.list');
     Route::get('city/create', [CityController::class, 'getCreate'])->name('city.create');
@@ -159,6 +160,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('city/{id}/edit', [CityController::class, 'getEdit'])->name('city.edit');
     Route::post('city/{id}/update', [CityController::class, 'postUpdate'])->name('city.update');
     Route::get('city_list', [CityController::class, 'getCity'])->name('city.list');
+
     // area
     Route::get('area', [AreaController::class, 'getIndex'])->name('area.list');
     Route::get('area/create', [AreaController::class, 'getCreate'])->name('area.create');
@@ -166,6 +168,99 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('area/{id}/edit', [AreaController::class, 'getEdit'])->name('area.edit');
     Route::post('area/{id}/update', [AreaController::class, 'postUpdate'])->name('area.update');
     Route::get('area_list', [AreaController::class, 'getArea'])->name('area.get');
+
+
+    //property category
+    Route::get('propertycategory', [PropertyCategoryController::class, 'getIndex'])->name('propertycategory.list');
+    Route::get('propertycategory/new', [PropertyCategoryController::class, 'getCreate'])->name('propertycategory.create');
+    Route::post('propertycategory/store', [PropertyCategoryController::class, 'postStore'])->name('propertycategory.store');
+    Route::get('propertycategory/{id}/edit', [PropertyCategoryController::class, 'getEdit'])->name('propertycategory.edit');
+    Route::post('propertycategory/{id}/update', [PropertyCategoryController::class, 'postUpdate'])->name('propertycategory.update');
+    Route::post('propertycategory/{id}/delete', [PropertyCategoryController::class, 'getDelete'])->name('propertycategory.delete');
+
+    //property Condition
+    Route::get('propertycondition', [PropertyConditionController::class, 'getIndex'])->name('propertycondition.list');
+    Route::get('propertycondition/new', [PropertyConditionController::class, 'getCreate'])->name('propertycondition.create');
+    Route::post('propertycondition/store', [PropertyConditionController::class, 'postStore'])->name('propertycondition.store');
+    Route::get('propertycondition/{id}/edit', [PropertyConditionController::class, 'getEdit'])->name('propertycondition.edit');
+    Route::post('propertycondition/{id}/update', [PropertyConditionController::class, 'postUpdate'])->name('propertycondition.update');
+    Route::post('propertycondition/{id}/delete', [PropertyConditionController::class, 'getDelete'])->name('propertycondition.delete');
+
+
+    //property Features
+    Route::get('propertyfeatures', [PropertyFeaturesController::class, 'getIndex'])->name('propertyfeatures.list');
+    Route::get('propertyfeatures/new', [PropertyFeaturesController::class, 'getCreate'])->name('propertyfeatures.create');
+    Route::post('propertyfeatures/store', [PropertyFeaturesController::class, 'postStore'])->name('propertyfeatures.store');
+    Route::get('propertyfeatures/{id}/edit', [PropertyFeaturesController::class, 'getEdit'])->name('propertyfeatures.edit');
+    Route::post('propertyfeatures/{id}/update', [PropertyFeaturesController::class, 'postUpdate'])->name('propertyfeatures.update');
+    Route::post('propertyfeatures/{id}/delete', [PropertyFeaturesController::class, 'getDelete'])->name('propertyfeatures.delete');
+
+
+    //property Floor
+    Route::get('propertyfloor', [PropertyFloorController::class, 'getIndex'])->name('propertyfloor.list');
+    Route::get('propertyfloor/new', [PropertyFloorController::class, 'getCreate'])->name('propertyfloor.create');
+    Route::post('propertyfloor/store', [PropertyFloorController::class, 'postStore'])->name('propertyfloor.store');
+    Route::get('propertyfloor/{id}/edit', [PropertyFloorController::class, 'getEdit'])->name('propertyfloor.edit');
+    Route::post('propertyfloor/{id}/update', [PropertyFloorController::class, 'postUpdate'])->name('propertyfloor.update');
+    Route::post('propertyfloor/{id}/delete', [PropertyFloorController::class, 'getDelete'])->name('propertyfloor.delete');
+
+    //property Floor
+    Route::get('propertyfacing', [PropertyFacingController::class, 'getIndex'])->name('propertyfacing.list');
+    Route::get('propertyfacing/new', [PropertyFacingController::class, 'getCreate'])->name('propertyfacing.create');
+    Route::post('propertyfacing/store', [PropertyFacingController::class, 'postStore'])->name('propertyfacing.store');
+    Route::get('propertyfacing/{id}/edit', [PropertyFacingController::class, 'getEdit'])->name('propertyfacing.edit');
+    Route::post('propertyfacing/{id}/update', [PropertyFacingController::class, 'postUpdate'])->name('propertyfacing.update');
+    Route::post('propertyfacing/{id}/delete', [PropertyFacingController::class, 'getDelete'])->name('propertyfacing.delete');
+
+    //nearbyarea
+    Route::get('nearbyarea', [NearByController::class, 'getIndex'])->name('nearbyarea.list');
+    Route::get('nearbyarea/new', [NearByController::class, 'getCreate'])->name('nearbyarea.create');
+    Route::post('nearbyarea/store', [NearByController::class, 'postStore'])->name('nearbyarea.store');
+    Route::get('nearbyarea/{id}/edit', [NearByController::class, 'getEdit'])->name('nearbyarea.edit');
+    Route::post('nearbyarea/{id}/update', [NearByController::class, 'postUpdate'])->name('nearbyarea.update');
+    Route::post('nearbyarea/{id}/delete', [NearByController::class, 'getDelete'])->name('nearbyarea.delete');
+
+
+    // //city
+    // Route::get('city', [CityController::class, 'getIndex'])->name('city.list');
+    // Route::get('city/new', [CityController::class, 'getCreate'])->name('city.create');
+    // Route::post('city/store', [CityController::class, 'postStore'])->name('city.store');
+    // Route::get('city/{id}/edit', [CityController::class, 'getEdit'])->name('city.edit');
+    // Route::post('city/{id}/update', [CityController::class, 'postUpdate'])->name('city.update');
+    // Route::post('city/{id}/delete', [CityController::class, 'getDelete'])->name('city.delete');
+
+    // //city
+    // Route::get('area', [AreaController::class, 'getIndex'])->name('area.list');
+    // Route::get('area/new', [AreaController::class, 'getCreate'])->name('area.create');
+    // Route::post('area/store', [AreaController::class, 'postStore'])->name('area.store');
+    // Route::get('area/{id}/edit', [AreaController::class, 'getEdit'])->name('area.edit');
+    // Route::post('area/{id}/update', [AreaController::class, 'postUpdate'])->name('area.update');
+    // Route::post('area/{id}/delete', [AreaController::class, 'getDelete'])->name('area.delete');
+
+    //listing pricing
+    Route::get('listing-price', [ListingPriceController::class, 'getIndex'])->name('listing-price.list');
+    Route::post('listing-price/update', [ListingPriceController::class, 'postUpdate'])->name('listing-price.update');
+    Route::post('listing-lead-price/update', [ListingPriceController::class, 'postLeadPriceUpdate'])->name('listing-lead-price.update');
+
+
+     //Payment Method
+     Route::get('payment_method', [PaymentMethodController::class, 'getIndex'])->name('payment_method.list');
+     Route::get('payment_method/new', [PaymentMethodController::class, 'getCreate'])->name('payment_method.create');
+     Route::post('payment_method/store', [PaymentMethodController::class, 'postStore'])->name('payment_method.store');
+     Route::get('payment_method/{id}/edit', [PaymentMethodController::class, 'getEdit'])->name('payment_method.edit');
+     Route::post('payment_method/{id}/update', [PaymentMethodController::class, 'postUpdate'])->name('payment_method.update');
+     Route::post('payment_method/{id}/delete', [PaymentMethodController::class, 'getDelete'])->name('payment_method.delete');
+
+    //Payment Acc
+    Route::get('payment_acc', [PaymentBankController::class, 'getIndex'])->name('payment_acc.list');
+    Route::get('payment_acc/new', [PaymentBankController::class, 'getCreate'])->name('payment_acc.create');
+    Route::post('payment_acc/store', [PaymentBankController::class, 'postStore'])->name('payment_acc.store');
+    Route::get('payment_acc/{id}/edit', [PaymentBankController::class, 'getEdit'])->name('payment_acc.edit');
+    Route::post('payment_acc/{id}/update', [PaymentBankController::class, 'postUpdate'])->name('payment_acc.update');
+    Route::post('payment_acc/{id}/delete', [PaymentBankController::class, 'getDelete'])->name('payment_acc.delete');
+
+
+
     // property
     // Route::get('area_list', [AreaController::class, 'getArea'])->name('area.list');
     // Route::get('property/new', ['middleware' => 'acl:new_product', 'as' => 'admin.product.create', 'uses' => 'ProductController@getCreate']);
