@@ -50,12 +50,16 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="m-0">{{ __('Ad list') }}</h5>
-                            <span class="float-right">
-                                <a href="{{ route('admin.ads') }}" class="btn btn-sm btn-primary">All Ads</a>
-                                <a href="{{ route('admin.ads.create') }}" class="btn btn-sm btn-primary">+ Create
-                                </a>
-                            </span>
+                            <h5 class="m-0">
+                                {{ __('Ad list') }}
+                                <span class="float-right">
+                                    {{-- <a href="{{ route('admin.ads') }}" class="btn btn-sm btn-primary">All Ads</a> --}}
+                                    <a href="{{ route('admin.ads.create') }}" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-plus"></i>
+                                        Create
+                                    </a>
+                                </span>
+                            </h5>
                         </div>
                         <div class="card-body">
                             <div class="row  mb-2">
