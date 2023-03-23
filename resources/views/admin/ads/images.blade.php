@@ -138,20 +138,20 @@
                                                             <td>{{ $image->url }}</td>
                                                             <td>
                                                                 @if (Auth::user()->can('admin.ads-image.update'))
-                                                                    <a class="btn edit-btn btn-sm btn-warning text-white"
+                                                                    <a class="btn btn-xs btn-success mb-05 mr-05"
                                                                        href=""
                                                                        data-value="{{ $image->order_id }}"
                                                                        data-id="{{ $image->id }}"
                                                                        title="Edit">
-                                                                        <i class="la la-pencil"></i>
+                                                                        Edit
                                                                     </a>
                                                                 @endif
-                                                                @if (Auth::user()->can('admin.ads-image.update'))
-                                                                    <a class="btn btn-sm btn-danger text-white"
+                                                                @if (Auth::user()->can('admin.ads-image.delete'))
+                                                                    <a class="btn btn-xs btn-danger mb-05 mr-05"
                                                                        onclick="return confirm('Are you sure?')"
-                                                                       href="{{ route('admin.ads-image.update', $image->id) }}"
+                                                                       href="{{ route('admin.ads-image.delete', $image->id) }}"
                                                                        title="Images">
-                                                                        <i class="la la-trash"></i>
+                                                                       Delete
                                                                     </a>
                                                                 @endif
                                                             </td>

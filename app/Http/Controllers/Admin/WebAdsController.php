@@ -120,20 +120,20 @@ class WebAdsController extends Controller
     public function deleteAd($id)
     {
         $this->resp = $this->ads->deleteAd($id);
-        return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
+        return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function deleteAdsImage($id)
     {
         $this->resp = $this->ads->deleteAdsImage($id);
-        return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
+        return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
     }
 
 
     public function deleteAdsPosition($id)
     {
         $this->resp = $this->ads->deleteAdsPosition($id);
-        return redirect()->route($this->resp->redirect_to, $id)->with($this->resp->redirect_class, $this->resp->msg);
+        return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
     }
 
 

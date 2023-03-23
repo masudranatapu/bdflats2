@@ -283,10 +283,13 @@ class WebAds extends Model
         DB::beginTransaction();
         try {
             $adImg = AdsImages::find($id);
-            $imageFile = $adImg->image_path;
-            $adImg->delete();
-            unlink(public_path($imageFile));
-
+            if($adImg){
+                $imageFile = $adImg->image_path;
+                $adImg->delete();
+                if (file_exists(public_path($imageFile))){
+                    unlink(public_path($imageFile));
+                }
+            }
             $status     = true;
             $msg        = 'Image deleted successfully!';
         } catch (\Exception $e) {
@@ -295,7 +298,7 @@ class WebAds extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($status, $msg, 'web.ads.image');
+        return $this->formatResponse($status, $msg, 'admin.ads');
     }
 
 
@@ -308,7 +311,7 @@ class WebAds extends Model
         try {
             $adImg = AdsPosition::find($id);
 
-            if($adImg);
+            dd($adImg);
 
             $adImg->delete();
 
