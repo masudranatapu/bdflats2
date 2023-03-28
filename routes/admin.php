@@ -10,7 +10,6 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\Admin\WebAdsController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CityController;
@@ -21,6 +20,7 @@ use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\AgentsController;
 use App\Http\Controllers\Admin\SeekerController;
+use App\Http\Controllers\Admin\WebAdsController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -29,6 +29,9 @@ use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ListingPriceController;
 use App\Http\Controllers\Admin\PagesCategoryController;
+use App\Http\Controllers\Admin\PropertyCategoryController;
+use App\Http\Controllers\Admin\PropertyFeaturesController;
+use App\Http\Controllers\Admin\PropertyConditionController;
 use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 
 /*
@@ -63,9 +66,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('property/{id}/view', [PropertyController::class, 'getView'])->name('property.view');
     Route::get('property/{id}/activity', [PropertyController::class, 'getaAtivity'])->name('property.activity');
     // listing price
-    Route::get('listing-price', [ListingPriceController::class, 'getIndex'])->name('listing_price.list');
-    Route::post('listing-price/update', [ListingPriceController::class, 'postUpdate'])->name('listing_price.update');
-    Route::post('listing-lead-price/update', [ListingPriceController::class, 'postLeadPriceUpdate'])->name('listing_lead_price.update');
+    // Route::get('listing-price', [ListingPriceController::class, 'getIndex'])->name('listing_price');
+    // Route::post('listing-price/update', [ListingPriceController::class, 'postUpdate'])->name('listing_price.update');
+    // Route::post('listing-lead-price/update', [ListingPriceController::class, 'postLeadPriceUpdate'])->name('listing_lead_price.update');
+
     // owner
     Route::get('owner', [OwnerController::class, 'getIndex'])->name('owner.index');
     Route::get('owner/{id}/view', [OwnerController::class, 'getView'])->name('owner.view');
@@ -86,7 +90,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('seeker/update', [SeekerController::class, 'postUpdate'])->name('seeker.update');
     Route::get('seeker/{id}/payment', [SeekerController::class, 'getPayment'])->name('seeker.payment');
     Route::get('seeker/{id}/recharge', [SeekerController::class, 'getRecharge'])->name('seeker.recharge');
-    Route::post('seeker/{id}/recharge', [SeekerController::class, 'postRecharge'])->name('seeker.recharge');
+    Route::post('seeker/{id}/recharge', [SeekerController::class, 'postRecharge'])->name('seeker.rechargestore');
     Route::get('seeker/get_area/{id}', [SeekerController::class, 'getArea'])->name('seeker.get_area');
     Route::post('seeker_list', [DataTableController::class, 'getSeeker'])->name('seeker.list');
     Route::get('seeker/payment-account', [SeekerController::class, 'paymentAccount'])->name('seeker.payment-account.list');
@@ -159,7 +163,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('city/store', [CityController::class, 'postStore'])->name('city.store');
     Route::get('city/{id}/edit', [CityController::class, 'getEdit'])->name('city.edit');
     Route::post('city/{id}/update', [CityController::class, 'postUpdate'])->name('city.update');
-    Route::get('city_list', [CityController::class, 'getCity'])->name('city.list');
+    Route::get('city_list', [CityController::class, 'getCity'])->name('city.get');
 
     // area
     Route::get('area', [AreaController::class, 'getIndex'])->name('area.list');
@@ -176,7 +180,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('propertycategory/store', [PropertyCategoryController::class, 'postStore'])->name('propertycategory.store');
     Route::get('propertycategory/{id}/edit', [PropertyCategoryController::class, 'getEdit'])->name('propertycategory.edit');
     Route::post('propertycategory/{id}/update', [PropertyCategoryController::class, 'postUpdate'])->name('propertycategory.update');
-    Route::post('propertycategory/{id}/delete', [PropertyCategoryController::class, 'getDelete'])->name('propertycategory.delete');
+    Route::get('propertycategory/{id}/delete', [PropertyCategoryController::class, 'getDelete'])->name('propertycategory.delete');
 
     //property Condition
     Route::get('propertycondition', [PropertyConditionController::class, 'getIndex'])->name('propertycondition.list');
@@ -184,7 +188,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('propertycondition/store', [PropertyConditionController::class, 'postStore'])->name('propertycondition.store');
     Route::get('propertycondition/{id}/edit', [PropertyConditionController::class, 'getEdit'])->name('propertycondition.edit');
     Route::post('propertycondition/{id}/update', [PropertyConditionController::class, 'postUpdate'])->name('propertycondition.update');
-    Route::post('propertycondition/{id}/delete', [PropertyConditionController::class, 'getDelete'])->name('propertycondition.delete');
+    Route::get('propertycondition/{id}/delete', [PropertyConditionController::class, 'getDelete'])->name('propertycondition.delete');
 
 
     //property Features
@@ -238,9 +242,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     // Route::post('area/{id}/delete', [AreaController::class, 'getDelete'])->name('area.delete');
 
     //listing pricing
-    Route::get('listing-price', [ListingPriceController::class, 'getIndex'])->name('listing-price.list');
-    Route::post('listing-price/update', [ListingPriceController::class, 'postUpdate'])->name('listing-price.update');
-    Route::post('listing-lead-price/update', [ListingPriceController::class, 'postLeadPriceUpdate'])->name('listing-lead-price.update');
+    Route::get('listing_price', [ListingPriceController::class, 'getIndex'])->name('listing_price.list');
+    Route::post('listing_price/update', [ListingPriceController::class, 'postUpdate'])->name('listing_price.update');
+    Route::post('listing_lead_price/update', [ListingPriceController::class, 'postLeadPriceUpdate'])->name('listing_lead_price.update');
 
 
      //Payment Method

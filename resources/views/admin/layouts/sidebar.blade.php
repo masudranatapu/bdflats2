@@ -168,38 +168,38 @@
                     <ul class="nav nav-treeview @yield('settings_menu')">
 
                         <li class="nav-item">
-                            <a href="{{route('admin.propertycategory')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertycategory.list')}}" class="nav-link @yield('propertycategory')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Property Categories</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.property.condition')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertycondition.list')}}" class="nav-link @yield('propertycondition')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Condition</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.propertyfeatures')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertyfeatures.list')}}" class="nav-link @yield('property_list')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Features</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.nearbyarea')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.nearbyarea.list')}}" class="nav-link @yield('property_list')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>NearBy</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{route('admin.propertyfloor')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertyfloor.list')}}" class="nav-link @yield('property_list')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Floor</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.propertyfacing')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertyfacing.list')}}" class="nav-link @yield('property_list')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Facing</span>
                             </a>

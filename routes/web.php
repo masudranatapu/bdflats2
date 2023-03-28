@@ -112,7 +112,7 @@ Route::group(['namespace' => 'Developer', 'middleware' => ['auth']], function ()
     Route::post('developer-listings/{id}/update', 'ListingController@update')->name('developer.listings.update');
     Route::get('developer-listings/{id}/delete', 'ListingController@delete')->name('developer.listings.delete');
     Route::get('developer-listings/{id}/pay', 'ListingController@pay')->name('developer.listings.pay');
-    Route::post('developer-listings/{id}/pay', 'ListingController@payStore')->name('developer.listings.pay');
+    Route::post('developer-listings/{id}/pay', 'ListingController@payStore')->name('developer.listings.paystore');
 
 });
 
@@ -131,7 +131,7 @@ Route::group(['namespace' => 'Agency', 'middleware' => ['auth']], function () {
     Route::post('agency-listings/{id}/update', 'ListingController@update')->name('agency.listings.update');
     Route::get('agency-listings/{id}/delete', 'ListingController@delete')->name('agency.listings.delete');
     Route::get('agency-listings/{id}/pay', 'ListingController@pay')->name('agency.listings.pay');
-    Route::post('agency-listings/{id}/pay', 'ListingController@payStore')->name('agency.listings.pay');
+    Route::post('agency-listings/{id}/pay', 'ListingController@payStore')->name('agency.listings.paystore');
 });
 
 Route::group(['namespace' => 'Agent', 'middleware' => ['auth']], function () {
@@ -181,7 +181,7 @@ Route::group(['namespace' => 'Owner', 'middleware' => ['auth']], function () {
     Route::post('listings/{id}/update', 'ListingController@update')->name('listings.update');
     Route::get('listings/{id}/delete', 'ListingController@delete')->name('listings.delete');
     Route::get('listings/{id}/pay', 'ListingController@pay')->name('listings.pay');
-    Route::post('listings/{id}/pay', 'ListingController@payStore')->name('listings.pay');
+    Route::post('listings/{id}/pay', 'ListingController@payStore')->name('listings.paystore');
 
     Route::get('ajax-listings-delete_img/{id}', 'ListingController@deleteListingImage')->name('listings.delete_img');
     Route::get('ajax-get-property-type/{id}', 'ListingController@getPropertyType')->name('get.property_type');
