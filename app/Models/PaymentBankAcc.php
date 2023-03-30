@@ -2,52 +2,53 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use DB;
+use Str;
+use App\Traits\RepoResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 class PaymentBankAcc extends Model
 {
-    protected $table = 'ACC_PAYMENT_BANK_ACC';
+    use RepoResponse;
 
-    protected $primaryKey = 'PK_NO';
-    const CREATED_AT = 'SS_CREATED_ON';
-    const UPDATED_AT = 'SS_MODIFIED_ON';
-    protected $fillable = ['CODE', 'BANK_NAME'];
+    protected $table = 'acc_payment_bank_acc';
+    protected $fillable = ['code', 'bank_name'];
 
 
     public static function boot()
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->F_SS_CREATED_BY = Auth::id();
+            $model->created_by = Auth::id();
         });
 
         static::updating(function ($model) {
-            $model->F_SS_MODIFIED_BY = Auth::id();
+            $model->updated_by = Auth::id();
         });
     }
 
 
     public function entryBy()
     {
-        return $this->belongsTo('App\Models\Auth', 'F_SS_CREATED_BY');
+        return $this->belongsTo('App\Models\Auth', 'f_ss_created_by');
     }
 
     public function method()
     {
-        return $this->belongsTo('App\Models\AccountMethod', 'F_PAYMENT_METHOD_NO');
+        return $this->belongsTo('App\Models\AccountMethod', 'f_payment_method_no');
     }
 
     public static function getAllPaymentBanks()
     {
-        $data = PaymentBankAcc::select('PK_NO', 'BANK_NAME', 'BANK_ACC_NAME')
+        $data = PaymentBankAcc::select('id', 'bank_name', 'bank_acc_name')
             ->where('IS_ACTIVE', 1)
-            // ->where('F_USER_NO','!=',Auth::user()->PK_NO)
+            // ->where('F_USER_NO','!=',Auth::user()->id)
             ->get();
         $array = array();
         if ($data) {
             foreach ($data as $key => $value) {
-                $array[$value->PK_NO] = $value->BANK_ACC_NAME . ' (' . $value->BANK_NAME . ')';
+                $array[$value->id] = $value->bank_acc_name . ' (' . $value->bank_name . ')';
             }
         }
         return $array;
@@ -55,18 +56,77 @@ class PaymentBankAcc extends Model
 
     public static function getFilterPaymentBanks()
     {
-        $data = PaymentBankAcc::select('PK_NO', 'BANK_NAME', 'BANK_ACC_NAME');
-        if (Auth::user()->F_PARENT_USER_ID > 0) {
-            $data = $data->where('F_USER_NO', Auth::user()->F_PARENT_USER_ID);
+        $data = PaymentBankAcc::select('id', 'bank_name', 'bank_acc_name');
+        if (Auth::user()->f_parent_user_id > 0) {
+            $data = $data->where('f_user_no', Auth::user()->f_parent_user_id);
         }
         $data = $data->get();
 
         $array = array();
         if ($data) {
             foreach ($data as $key => $value) {
-                $array[$value->PK_NO] = $value->BANK_ACC_NAME . ' (' . $value->BANK_NAME . ')';
+                $array[$value->id] = $value->bank_acc_name . ' (' . $value->bank_name . ')';
             }
         }
         return $array;
     }
+
+
+    public function getPaginatedList($request, int $per_page = 5): object
+    {
+        $data = PaymentBankAcc::orderBy('bank_name', 'asc')->get();
+        //dd($data);
+        return $this->formatResponse(true, '', 'admin.payment_bank.list', $data);
+    }
+
+    public function postStore($request): object
+    {
+        DB::beginTransaction();
+        try {
+            $code = PaymentBankAcc::max('code');
+
+            if (!$code) {
+                $code = 100;
+            }
+            $code++;
+            $account = new PaymentBankAcc();
+            $account->code = $code;
+            $account->bank_name = $request->bank_name;
+            $account->bank_acc_name = $request->bank_acc_name;
+            $account->bank_acc_no = $request->bank_acc_no;
+            $account->is_active = $request->status;
+            $account->comments = $request->comment;
+            $account->f_payment_method_no = $request->payment_method;
+            $account->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+            return $this->formatResponse(false, $e->getMessage(), 'admin.payment_acc.list');
+        }
+
+        DB::commit();
+        return $this->formatResponse(true, 'Payment account has been created successfully !', 'admin.payment_acc.list');
+    }
+
+    public function postUpdate($request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $account = PaymentBankAcc::find($id);
+            $account->bank_name = $request->bank_name;
+            $account->bank_acc_name = $request->bank_acc_name;
+            $account->bank_acc_no = $request->bank_acc_no;
+            $account->is_active = $request->status;
+            $account->comments = $request->comment;
+            $account->f_payment_method_no = $request->payment_method;
+            $account->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->formatResponse(false, $e->getMessage(), 'admin.payment_acc.list');
+        }
+
+        DB::commit();
+        return $this->formatResponse(true, 'Payment account has been updated successfully !', 'admin.payment_acc.list');
+    }
+
 }

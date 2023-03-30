@@ -240,6 +240,63 @@
 
                     </ul>
                 </li>
+
+                <li class="nav-item @yield('Web Settings')">
+                    <a href="#" class="nav-link ">
+                        <i class="nav-icon far fa-envelope"></i>
+                        <p>Web Settings<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview @yield('Web Settings')">
+                        <li class="nav-item">
+                            <a href="{{route('admin.generalinfo')}}" class="nav-link @yield('generalinfo')"><i class="fas fa-cog nav-icon"></i><p>General</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.contact_message')}}" class="nav-link @yield('contact_message')"><i class="fas fa-cog nav-icon"></i><p>Contact Message</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.aboutus')}}" class="nav-link @yield('aboutus')"><i class="fas fa-cog nav-icon"></i><p>About Us</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.testimonial')}}" class="nav-link @yield('testimonial')"><i class="fas fa-cog nav-icon"></i><p>Testimonial</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.team_members')}}" class="nav-link @yield('team_members')"><i class="fas fa-cog nav-icon"></i><p>Team Members</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.slider')}}" class="nav-link @yield('slider')"><i class="fas fa-cog nav-icon"></i><p>Home Slider</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.newsletter')}}" class="nav-link @yield('newsletter')"><i class="fas fa-cog nav-icon"></i><p>Newsletter</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.page_category')}}" class="nav-link @yield('page_category')"><i class="fas fa-cog nav-icon"></i><p>Page Category</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.Pages')}}" class="nav-link @yield('Pages')"><i class="fas fa-cog nav-icon"></i><p>Pages</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.blog_category')}}" class="nav-link @yield('blog_category')"><i class="fas fa-cog nav-icon"></i><p>Blog Category</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.blog_article')}}" class="nav-link @yield('blog_article')"><i class="fas fa-cog nav-icon"></i><p>Blog Article</p></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('admin.faq')}}" class="nav-link @yield('faq')"><i class="fas fa-cog nav-icon"></i><p>Blog FAQ</p></a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
                 <li class="nav-item"><a href="{{ route('admin.user.index') }}"
                         class="nav-link @yield('admin-user')"><i class="fa fa-user-plus"></i>
                         {{ __('Admin User & Role') }}</a></li>

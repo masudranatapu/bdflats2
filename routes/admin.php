@@ -26,16 +26,18 @@ use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataTableController;
+use App\Http\Controllers\Admin\PaymentBankController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ListingPriceController;
 use App\Http\Controllers\Admin\PagesCategoryController;
+use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\PropertyFloorController;
+use App\Http\Controllers\Admin\PropertyFacingController;
 use App\Http\Controllers\Admin\PropertyCategoryController;
 use App\Http\Controllers\Admin\PropertyFeaturesController;
 use App\Http\Controllers\Admin\PropertyConditionController;
 use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
-use App\Http\Controllers\Admin\PropertyFacingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -228,6 +230,34 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('nearbyarea/{id}/delete', [NearByController::class, 'getDelete'])->name('nearbyarea.delete');
 
 
+    Route::get('generalinfo', [NearByController::class, 'getDelete'])->name('generalinfo');
+    Route::get('contact_message', [NearByController::class, 'getDelete'])->name('contact_message');
+    Route::get('aboutus', [NearByController::class, 'getDelete'])->name('aboutus');
+    Route::get('testimonial', [NearByController::class, 'getDelete'])->name('testimonial');
+    Route::get('team_members', [NearByController::class, 'getDelete'])->name('team_members');
+    Route::get('slider', [NearByController::class, 'getDelete'])->name('slider');
+    Route::get('newsletter', [NearByController::class, 'getDelete'])->name('newsletter');
+    Route::get('page_category', [NearByController::class, 'getDelete'])->name('page_category');
+    Route::get('Pages', [NearByController::class, 'getDelete'])->name('Pages');
+    Route::get('blog_category', [NearByController::class, 'getDelete'])->name('blog_category');
+    Route::get('blog_article', [NearByController::class, 'getDelete'])->name('blog_article');
+    Route::get('faq', [NearByController::class, 'getDelete'])->name('faq');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // //city
     // Route::get('city', [CityController::class, 'getIndex'])->name('city.list');
     // Route::get('city/new', [CityController::class, 'getCreate'])->name('city.create');
@@ -252,11 +282,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
      //Payment Method
      Route::get('payment_method', [PaymentMethodController::class, 'getIndex'])->name('payment_method.list');
-     Route::get('payment_method/new', [PaymentMethodController::class, 'getCreate'])->name('payment_method.create');
-     Route::post('payment_method/store', [PaymentMethodController::class, 'postStore'])->name('payment_method.store');
+    //  Route::get('payment_method/new', [PaymentMethodController::class, 'getCreate'])->name('payment_method.create');
+    //  Route::post('payment_method/store', [PaymentMethodController::class, 'postStore'])->name('payment_method.store');
      Route::get('payment_method/{id}/edit', [PaymentMethodController::class, 'getEdit'])->name('payment_method.edit');
      Route::post('payment_method/{id}/update', [PaymentMethodController::class, 'postUpdate'])->name('payment_method.update');
-     Route::post('payment_method/{id}/delete', [PaymentMethodController::class, 'getDelete'])->name('payment_method.delete');
+    //  Route::post('payment_method/{id}/delete', [PaymentMethodController::class, 'getDelete'])->name('payment_method.delete');
 
     //Payment Acc
     Route::get('payment_acc', [PaymentBankController::class, 'getIndex'])->name('payment_acc.list');
