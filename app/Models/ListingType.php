@@ -10,6 +10,16 @@ class ListingType extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
+    public function listingPrice()
+    {
+        return $this->hasOne('App\Models\ListingPrice', 'f_listing_type_no');
+    }
+
+    public function getPaginatedList()
+    {
+        return ListingType::get();
+    }
+
 
 
 

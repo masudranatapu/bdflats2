@@ -26,8 +26,8 @@ class AreaController extends Controller
     public function getIndex()
     {
 
-        $data['areas'] = $this->area->getAreas()->data;
-        return view('admin.area.index', compact('data'));
+        $rows = $this->area->getAreas()->data;
+        return view('admin.area.index', compact('rows'));
     }
 
     public function getCreate()
@@ -44,7 +44,7 @@ class AreaController extends Controller
 
     public function getEdit($id)
     {
-        $data['area'] = $this->area->getArea($id)->data;
+        $data['area'] = Area::find($id);
         $data['cities'] = $this->city->getCities()->data->pluck('city_name', 'id');
         return view('admin.area.edit', compact('data'));
     }

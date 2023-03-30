@@ -11,7 +11,7 @@
     <li class="breadcrumb-item active">Create Property Category</li>
 @endsection
 
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/fileupload/bootstrap-fileupload.css') }}">
 @endpush
 
@@ -187,6 +187,6 @@
 
 </div>
 @endsection
-@push('custom_js')
+@push('script')
 <script type="text/javascript" src="{{ asset('app-assets/vendors/fileupload/bootstrap-fileupload.min.js') }}"></script>
-@endpush('custom_js')
+@endpush('script')

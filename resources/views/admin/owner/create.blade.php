@@ -19,7 +19,7 @@
     .twitter-typeahead{display: block !important;}
     .tt-hint {color: #999 !important;}
 </style>
-@endpush('style')
+@push('style')
 
 @section('content')
     <div class="card card-success min-height">

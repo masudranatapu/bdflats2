@@ -1,6 +1,6 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
-@section('Product Management','open')
+@section('settings_menu','menu-open')
 @section('area_list','active')
 
 @section('title') Area @endsection
@@ -12,14 +12,14 @@
 @endsection
 
 @php
-    $roles = userRolePermissionArray()
+
 @endphp
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css"
           href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endpush
 
-@push('custom_js')
+@push('script')
     <!-- BEGIN: Data Table-->
     <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
     <script src="{{asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
@@ -27,85 +27,96 @@
 @endpush
 
 @section('content')
-    <div class="content-body min-height">
-        <section id="pagination">
-            <div class="row">
-                <div class="col-8">
-                    <div class="card card-sm card-success">
-                        <div class="card-header pl-2">
-                            <div class="form-group">
-                                @if(hasAccessAbility('add_area', $roles))
-                                    <a class="text-white btn btn-sm btn-primary"
-                                       href="{{ route('admin.area.new')}}" title="Create new condition"><i
-                                            class="ft-plus text-white"></i> Add New</a>
-                                @endif
 
-                            </div>
-                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                            <div class="heading-elements">
-                                <ul class="list-inline mb-0">
-                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                    <li><a data-action="close"><i class="ft-x"></i></a></li>
-                                </ul>
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">{{ __('Area') }}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ __('Area') }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="m-0">
+                                {{ __('Area list') }}
+                                <span class="float-right">
+                                    <a href="{{ route('admin.area.create') }}" class="btn btn-sm btn-primary">
+                                        + Create Role
+                                    </a>
+                                </span>
+                            </h5>
+                        </div>
+
+                        <div class="card-body card-dashboard">
+                            <div class="table-responsive">
+                                <table
+                                    class="table table-striped table-bordered alt-pagination"
+                                    id="indextable">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 50px;">SL.</th>
+                                        <th class="" style="min-width: 100px;">Area Name</th>
+                                        <th class="" style="min-width: 100px;">Sub Area Name</th>
+                                        <th class="" style="min-width: 100px;">City Name</th>
+                                        <th>Latitude</th>
+                                        <th>Longitude</th>
+                                        <th class="" style="">Order</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(isset($rows) && count($rows))
+                                        @foreach($rows as $key => $row)
+                                            <tr>
+                                                <td class="text-center"
+                                                    style="width: 50px;">{{ $key + 1 }}</td>
+                                                <td class="" style="">{{ $row['area_name'] }}</td>
+                                                <td class="" style="">{{ $row['sub_area_name'] }}</td>
+                                                <td class="" style="">{{ $row['city_name'] }}</td>
+                                                <td>{{ $row['lat'] ?? 'N/A' }}</td>
+                                                <td>{{ $row['lon'] ?? 'N/A' }}</td>
+                                                <td class="" style="">{{ $row['order_id'] }}</td>
+                                                <td class="text-center" style="width: 200px;">
+
+                                                <a href="{{ route('admin.area.edit', $row['id'] ) }}" title="EDIT" class="btn btn-xs btn-info  mb-1">Edit</a>
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body card-dashboard">
-                                <div class="table-responsive">
-                                    <table
-                                        class="table table-striped table-bordered alt-pagination"
-                                        id="indextable">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center" style="width: 50px;">SL.</th>
-                                            <th class="" style="min-width: 100px;">Area Name</th>
-                                            <th class="" style="min-width: 100px;">Sub Area Name</th>
-                                            <th class="" style="min-width: 100px;">City Name</th>
-                                            <th>Latitude</th>
-                                            <th>Longitude</th>
-                                            <th class="" style="">Order</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if(isset($data['areas']) && count($data['areas']))
-                                            @foreach($data['areas'] as $key => $area)
-                                                <tr>
-                                                    <td class="text-center"
-                                                        style="width: 50px;">{{ $key + 1 }}</td>
-                                                    <td class="" style="">{{ $area['AREA_NAME'] }}</td>
-                                                    <td class="" style="">{{ $area['SUB_AREA_NAME'] }}</td>
-                                                    <td class="" style="">{{ $area['CITY_NAME'] }}</td>
-                                                    <td>{{ $area['LAT'] ?? 'N/A' }}</td>
-                                                    <td>{{ $area['LON'] ?? 'N/A' }}</td>
-                                                    <td class="" style="">{{ $area['ORDER_ID'] }}</td>
-                                                    <td class="text-center" style="width: 200px;">
-                                                        @if(hasAccessAbility('edit_property_condition', $roles))
-                                                            <a href="{{ route('admin.area.edit', $area['PK_NO'] ) }}" title="EDIT" class="btn btn-xs btn-info  mb-1"><i class="la la-edit"></i></a>
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
+
+</div>
 @endsection
 
 
-@push('custom_js')
+@push('script')
 
     <!--script only for brand page-->
     <script type="text/javascript" src="{{ asset('app-assets/pages/category.js')}}"></script>
 
 
-@endpush('custom_js')
+@endpush('script')

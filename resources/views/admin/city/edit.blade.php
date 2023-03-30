@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('Product Management','open')
+@section('settings_menu','menu-open')
 @section('city_list','active')
 
 @section('title') City / Division | Update @endsection
@@ -18,12 +18,12 @@ $status = [
     0 => 'Inactive'
 ];
 @endphp
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css"
           href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endpush
 
-@push('custom_js')
+@push('script')
     <!-- BEGIN: Data Table-->
     <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
     <script src="{{asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
@@ -146,10 +146,10 @@ $status = [
 @endsection
 
 
-@push('custom_js')
+@push('script')
 
     <!--script only for brand page-->
     <script type="text/javascript" src="{{ asset('app-assets/pages/category.js')}}"></script>
 
 
-@endpush('custom_js')
+@endpush('script')

@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+
+use DB;
+use Str;
 use App\Traits\RepoResponse;
 use Illuminate\Database\Eloquent\Model;
 

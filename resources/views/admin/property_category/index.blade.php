@@ -15,7 +15,7 @@
 
 @endphp
 
-@push('custom_css')
+@push('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endpush
 
@@ -113,10 +113,10 @@
 @endsection
 
 
-@push('custom_js')
+@push('script')
 
 <script src="{{asset('/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
 <script src="{{asset('/app-assets/js/scripts/tables/datatables/datatable-basic.js')}}"></script>
 
 
-@endpush('custom_js')
+@endpush('script')
