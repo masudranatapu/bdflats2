@@ -62,7 +62,7 @@
                                                 <th>Latitude</th>
                                                 <th>Longitude</th>
                                                 <th>Order</th>
-                                                <th>Action</th>
+                                                <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -78,7 +78,7 @@
                                                         <td>{{ $row['lat'] ?? 'N/A' }}</td>
                                                         <td>{{ $row['lon'] ?? 'N/A' }}</td>
                                                         <td>{{ $row['order_id'] }}</td>
-                                                        <td style="width: 200px;">
+                                                        <td class="text-center">
                                                             <a href="{{ route('admin.area.edit', $row['id']) }}"
                                                                 title="{{ __('EDIT') }}"
                                                                 class="btn btn-xs btn-info mb-1">

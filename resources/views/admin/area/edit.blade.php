@@ -50,7 +50,7 @@
                                 <h5 class="m-0">
                                     {{ __('Area Edit') }}
                                     <span class="float-right">
-                                        <a href="{{ route('admin.roles.create') }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.area.list') }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-backward"></i>
                                             {{ __('Back') }}
                                         </a>

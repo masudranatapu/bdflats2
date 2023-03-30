@@ -14,13 +14,13 @@ use App\Http\Requests\PaymentBankRequest;
 class PaymentBankController extends BaseController
 {
     protected $paymentbank;
+
     protected $resp;
 
-    public function __construct(PaymentBankAcc  $paymentbank )
+    public function __construct(PaymentBankAcc  $paymentbank)
     {
         parent::__construct();
         $this->paymentbank         = $paymentbank;
-
     }
 
     public function getIndex(Request $request)
@@ -32,7 +32,7 @@ class PaymentBankController extends BaseController
     public function getCreate()
     {
         $data['methods'] = PaymentMethod::where('is_active', '=', 1)
-            ->orderBy('name','asc')
+            ->orderBy('name', 'asc')
             ->pluck('name', 'id');
         $data['status'] = [
             1 => 'Active',
@@ -66,14 +66,16 @@ class PaymentBankController extends BaseController
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
-    // public function putUpdate(AccountRequest $request, $id) {
+    // public function putUpdate(AccountRequest $request, $id)
+    // {
 
     //     $this->resp = $this->account->postUpdate($request, $id);
 
     //     return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
     // }
 
-    // public function getDelete($id) {
+    // public function getDelete($id)
+    // {
 
     //     $this->resp = $this->account->delete($id);
 
