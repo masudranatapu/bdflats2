@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
 @section('Web Ads','menu-open')
 @section('ads_list','active')

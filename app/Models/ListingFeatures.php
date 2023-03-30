@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DB;
+use Str;
 use App\Traits\RepoResponse;
 use Illuminate\Database\Eloquent\Model;
 
@@ -140,7 +142,7 @@ class ListingFeatures extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($this->status, $this->msg, 'admin.property.facing');
+        return $this->formatResponse($this->status, $this->msg, 'admin.propertyfacing.list');
     }
 
     public function updateFacing($request, int $id): object
@@ -164,67 +166,9 @@ class ListingFeatures extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($this->status, $this->msg, 'admin.property.facing');
+        return $this->formatResponse($this->status, $this->msg, 'admin.propertyfacing.list');
     }
 
-    public function getFloors($limit = 2000): object
-    {
-        $floors = FloorList::orderBy('order_id', 'desc')->paginate($limit);
-        return $this->formatResponse(true, '', '', $floors);
-    }
 
-    public function getFloor(int $id): object
-    {
-        $floor = FloorList::find($id);
-        return $this->formatResponse(true, '', '', $floor);
-    }
-
-    public function storeFloor($request): object
-    {
-        $this->status = false;
-        $this->msg = 'Floor not added!';
-
-        DB::beginTransaction();
-        try {
-            $floor = new FloorList();
-            $floor->name = $request->name;
-            $floor->order_id = $request->order_id;
-            $floor->is_active = $request->status;
-            $floor->save();
-
-            $this->status = true;
-            $this->msg = 'Floor added successfully!';
-        } catch (\Exception $e) {
-            DB::rollBack();
-            dd($e);
-        }
-
-        DB::commit();
-        return $this->formatResponse($this->status, $this->msg, 'admin.property.floor');
-    }
-
-    public function updateFloor($request, int $id): object
-    {
-        $this->status = false;
-        $this->msg = 'Floor not updated!';
-
-        DB::beginTransaction();
-        try {
-            $floor = FloorList::find($id);
-            $floor->name = $request->name;
-            $floor->order_id = $request->order_id;
-            $floor->is_active = $request->status;
-            $floor->save();
-
-            $this->status = true;
-            $this->msg = 'Floor updated successfully!';
-        } catch (\Exception $e) {
-            DB::rollBack();
-            dd($e);
-        }
-
-        DB::commit();
-        return $this->formatResponse($this->status, $this->msg, 'admin.property.floor');
-    }
 
 }

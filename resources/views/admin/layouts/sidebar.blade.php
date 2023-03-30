@@ -180,59 +180,59 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.propertyfeatures.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertyfeatures.list')}}" class="nav-link @yield('propertyfeatures')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Features</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.nearbyarea.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.nearbyarea.list')}}" class="nav-link @yield('nearbyarea')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>NearBy</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{route('admin.propertyfloor.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertyfloor.list')}}" class="nav-link @yield('propertyfloor')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Floor</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.propertyfacing.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.propertyfacing.list')}}" class="nav-link @yield('propertyfacing')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Facing</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.city.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.city.list')}}" class="nav-link @yield('city_list')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>City or Division</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.area.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.area.list')}}" class="nav-link @yield('area_list')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Area</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('admin.listing_price.list') }}" class="nav-link @yield('property_list')">
+                            <a href="{{ route('admin.listing_price.list') }}" class="nav-link @yield('listing_price')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Pricing</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{route('admin.payment_method.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.payment_method.list')}}" class="nav-link @yield('payment_method')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Payment Method</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{route('admin.payment_acc.list')}}" class="nav-link @yield('property_list')">
+                            <a href="{{route('admin.payment_acc.list')}}" class="nav-link @yield('payment_acc')">
                                 <i class="fas fa-cog nav-icon"></i>
                                 <span>Payment Account</span>
                             </a>

@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\ListingFeatures;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\PropertyFeaturesRequest;
+use App\Http\Requests\PropertyFacingRequest;
 
-class PropertyFeaturesController extends Controller
+class PropertyFacingController extends Controller
 {
     protected $features;
     protected $resp;
@@ -20,30 +20,30 @@ class PropertyFeaturesController extends Controller
 
     public function getIndex()
     {
-        $data['features'] = $this->features->getFeatures()->data;
-        return view('admin.property_features.index', compact('data'));
+        $data['facings'] = $this->features->getFacings()->data;
+        return view('admin.property_facing.index', compact('data'));
     }
 
     public function getCreate()
     {
-        return view('admin.property_features.create');
+        return view('admin.property_facing.create');
     }
 
-    public function postStore(PropertyFeaturesRequest $request): RedirectResponse
+    public function postStore(PropertyFacingRequest $request): RedirectResponse
     {
-        $this->resp = $this->features->postStore($request);
+        $this->resp = $this->features->storeFacing($request);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit($id)
     {
-        $data['feature'] = $this->features->getFeature($id)->data;
-        return view('admin.property_features.edit', compact('data'));
+        $data['facing'] = $this->features->getFacing($id)->data;
+        return view('admin.property_facing.edit', compact('data'));
     }
 
-    public function postUpdate(PropertyFeaturesRequest $request, $id): RedirectResponse
+    public function postUpdate(PropertyFacingRequest $request, $id): RedirectResponse
     {
-        $this->resp = $this->features->postUpdate($request, $id);
+        $this->resp = $this->features->updateFacing($request, $id);
         return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 }

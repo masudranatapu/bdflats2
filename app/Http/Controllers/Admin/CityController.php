@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CityRequest;
-use App\Repositories\Admin\City\CityInterface;
-use Illuminate\Http\RedirectResponse;
+use App\Models\City;
 use Illuminate\Http\Request;
+use App\Http\Requests\CityRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class CityController extends Controller
 {
     protected $city;
     protected $resp;
 
-    public function __construct(CityInterface $city)
+    public function __construct(City $city)
     {
         $this->city = $city;
     }
@@ -37,8 +37,9 @@ class CityController extends Controller
 
     public function getEdit($id)
     {
-        $data['city'] = $this->city->getCity($id)->data;
-        return view('admin.city.edit', compact('data'));
+        $row = City::find($id);
+
+        return view('admin.city.edit', compact('row'));
     }
 
     public function postUpdate(CityRequest $request, $id): RedirectResponse

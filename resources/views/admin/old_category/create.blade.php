@@ -1,4 +1,4 @@
-@extends('admin.layout.master')
+@extends('admin.layouts.master')
 
 @section('Product Management','open')
 @section('Category','active')

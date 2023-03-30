@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\OwnerController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\AgentsController;
+use App\Http\Controllers\Admin\NearByController;
 use App\Http\Controllers\Admin\SeekerController;
 use App\Http\Controllers\Admin\WebAdsController;
 use App\Http\Controllers\Admin\BlogPostController;
@@ -29,10 +30,12 @@ use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\ListingPriceController;
 use App\Http\Controllers\Admin\PagesCategoryController;
+use App\Http\Controllers\Admin\PropertyFloorController;
 use App\Http\Controllers\Admin\PropertyCategoryController;
 use App\Http\Controllers\Admin\PropertyFeaturesController;
 use App\Http\Controllers\Admin\PropertyConditionController;
 use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
+use App\Http\Controllers\Admin\PropertyFacingController;
 
 /*
 |--------------------------------------------------------------------------
