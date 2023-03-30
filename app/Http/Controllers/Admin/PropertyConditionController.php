@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\PropertyCondition;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\PropertyConditionRequest;
 use App\Http\Requests\PropertyConditionEditRequest;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 
 class PropertyConditionController extends Controller
 {
@@ -50,7 +50,19 @@ class PropertyConditionController extends Controller
 
     public function getDelete($id)
     {
-        dd($id);
+        $is_use_condition = DB::table('prd_listings')->where('f_property_condition', $id)->first();
+
+        if($is_use_condition) {
+
+            Toastr::success('You can not delete this property condition. At fist delete listings where used this property condition.');
+            return redirect()->back();
+        }else {
+
+            DB::table('prd_property_condition')->where('id', $id)->delete();
+            Toastr::success('Property condition successfully deleted');
+            return redirect()->back();
+        }
+
     }
 
     public function postUpdate(PropertyConditionEditRequest $request, $id)

@@ -64,6 +64,26 @@ class PropertyCategoryController extends BaseController
 
     public function getDelete($id)
     {
-        dd($id);
+        $is_use_property_type_on = DB::table('prd_listings')->where('f_property_type_no', $id)->first();
+
+        if($is_use_property_type_on) {
+            Toastr::success('You can not delete this property category. At fist delete listings where used this property condition.');
+            return redirect()->back();
+        }else {
+
+            $property_type = DB::table('prd_property_type')->where('id', $id)->first();
+            // dd($property_type);
+            if(file_exists($property_type->img_path)) {
+                unlink($property_type->img_path);
+            }
+            if(file_exists($property_type->icon_path)) {
+                unlink($property_type->icon_path);
+            }
+
+            DB::table('prd_property_type')->where('id', $id)->delete();
+
+            Toastr::success('Property category successfully deleted');
+            return redirect()->back();
+        }
     }
 }
