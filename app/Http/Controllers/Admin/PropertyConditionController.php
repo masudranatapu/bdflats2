@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\PropertyConditionRequest;
 use App\Http\Requests\PropertyConditionEditRequest;
+use Brian2694\Toastr\Facades\Toastr;
 
 class PropertyConditionController extends Controller
 {
@@ -34,7 +35,11 @@ class PropertyConditionController extends Controller
     public function postStore(PropertyConditionRequest $request)
     {
         $this->resp = $this->condition->postStore($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit($id)
@@ -45,13 +50,17 @@ class PropertyConditionController extends Controller
 
     public function getDelete($id)
     {
-       dd($id);
+        dd($id);
     }
 
     public function postUpdate(PropertyConditionEditRequest $request, $id)
     {
         $this->resp = $this->condition->postUpdate($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
-    }
 
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+    }
 }

@@ -87,7 +87,7 @@
                                                             </a>
                                                             <a href="{{ route('admin.propertycondition.delete', [$condition->id]) }}"
                                                                 title="{{ __('Delete') }}" class="btn btn-xs btn-danger mb-1"
-                                                                onclick="return confimr('Are you sure ?')">
+                                                                onclick="return confirm('Are you sure ?')">
                                                                 {{ __('Delete') }}
                                                             </a>
                                                         </td>

@@ -9,7 +9,7 @@ use App\Models\PaymentBankAcc;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\PaymentBankRequest;
-
+use Brian2694\Toastr\Facades\Toastr;
 
 class PaymentBankController extends BaseController
 {
@@ -44,7 +44,11 @@ class PaymentBankController extends BaseController
     public function postStore(PaymentBankRequest $request)
     {
         $this->resp = $this->paymentbank->postStore($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit($id)
@@ -63,7 +67,10 @@ class PaymentBankController extends BaseController
     public function postUpdate(PaymentBankRequest $request, $id)
     {
         $this->resp = $this->paymentbank->postUpdate($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     // public function putUpdate(AccountRequest $request, $id)

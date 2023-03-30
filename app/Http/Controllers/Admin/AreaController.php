@@ -8,6 +8,7 @@ use App\Models\City;
 use Illuminate\Http\Request;
 use App\Http\Requests\AreaRequest;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
 
@@ -39,7 +40,11 @@ class AreaController extends Controller
     public function postStore(AreaRequest $request): RedirectResponse
     {
         $this->resp = $this->area->postStore($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit($id)
@@ -52,7 +57,11 @@ class AreaController extends Controller
     public function postUpdate(AreaRequest $request, $id): RedirectResponse
     {
         $this->resp = $this->area->postUpdate($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getArea(Request $request)

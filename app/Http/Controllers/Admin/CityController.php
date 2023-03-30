@@ -6,6 +6,7 @@ use App\Models\City;
 use Illuminate\Http\Request;
 use App\Http\Requests\CityRequest;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\RedirectResponse;
 
 class CityController extends Controller
@@ -32,7 +33,12 @@ class CityController extends Controller
     public function postStore(CityRequest $request): RedirectResponse
     {
         $this->resp = $this->city->postStore($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit($id)
@@ -45,6 +51,10 @@ class CityController extends Controller
     public function postUpdate(CityRequest $request, $id): RedirectResponse
     {
         $this->resp = $this->city->postUpdate($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 }

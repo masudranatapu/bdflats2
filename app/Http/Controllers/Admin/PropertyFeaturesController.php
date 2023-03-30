@@ -7,6 +7,7 @@ use App\Models\ListingFeatures;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\PropertyFeaturesRequest;
+use Brian2694\Toastr\Facades\Toastr;
 
 class PropertyFeaturesController extends Controller
 {
@@ -32,7 +33,11 @@ class PropertyFeaturesController extends Controller
     public function postStore(PropertyFeaturesRequest $request): RedirectResponse
     {
         $this->resp = $this->features->postStore($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit($id)
@@ -44,6 +49,10 @@ class PropertyFeaturesController extends Controller
     public function postUpdate(PropertyFeaturesRequest $request, $id): RedirectResponse
     {
         $this->resp = $this->features->postUpdate($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 }

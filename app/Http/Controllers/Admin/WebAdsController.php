@@ -8,7 +8,7 @@ use App\Http\Requests\AdsRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\AdsPositionRequest;
-
+use Brian2694\Toastr\Facades\Toastr;
 
 class WebAdsController extends Controller
 {
@@ -37,7 +37,11 @@ class WebAdsController extends Controller
     public function storeAd(AdsRequest $request)
     {
         $this->resp = $this->ads->storeAd($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function editAd($id)
@@ -49,7 +53,12 @@ class WebAdsController extends Controller
     public function updateAd(AdsRequest $request, $id)
     {
         $this->resp = $this->ads->updateAd($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     // Ads Position
@@ -69,7 +78,12 @@ class WebAdsController extends Controller
     public function storeAdsPosition(AdsPositionRequest $request)
     {
         $this->resp = $this->ads->storeAdsPosition($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function editAdsPosition($id)
@@ -81,7 +95,11 @@ class WebAdsController extends Controller
     public function updateAdsPosition(AdsPositionRequest $request, $id)
     {
         $this->resp = $this->ads->updateAdsPosition($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     // Ads Image
@@ -120,13 +138,22 @@ class WebAdsController extends Controller
     public function deleteAd($id)
     {
         $this->resp = $this->ads->deleteAd($id);
-        return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->back();
+        // return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function deleteAdsImage($id)
     {
         $this->resp = $this->ads->deleteAdsImage($id);
-        return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->back();
+
+        // return redirect()->back()->with($this->resp->redirect_class, $this->resp->msg);
     }
 
 

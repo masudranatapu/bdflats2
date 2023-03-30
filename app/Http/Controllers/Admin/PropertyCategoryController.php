@@ -8,6 +8,7 @@ use App\Models\PropertyCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\PropertyCategoryRequest;
+use Brian2694\Toastr\Facades\Toastr;
 
 class PropertyCategoryController extends BaseController
 {
@@ -36,7 +37,11 @@ class PropertyCategoryController extends BaseController
         //dd($request->All());
         $this->resp = $this->category->postStore($request);
         //dd($this->resp);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getEdit(Request $request, $id)
@@ -49,7 +54,12 @@ class PropertyCategoryController extends BaseController
     public function postUpdate(PropertyCategoryRequest $request, $id)
     {
         $this->resp = $this->category->postUpdate($request, $id);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function getDelete($id)

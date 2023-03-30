@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\AgentRequest;
 use App\Repositories\Admin\Agent\AgentInterface;
+use Brian2694\Toastr\Facades\Toastr;
 
 class ListingPriceController extends BaseController
 {
@@ -35,13 +36,21 @@ class ListingPriceController extends BaseController
     {
 //        dd($request->all());
         $this->resp = $this->listing_price->postUpdate($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 
     public function postLeadPriceUpdate(Request $request)
     {
 //        dd($request->all());
         $this->resp = $this->listing_lead_price->postUpdate($request);
-        return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
+        Toastr::success($this->resp->msg);
+
+        return redirect()->route($this->resp->redirect_to);
+
+        // return redirect()->route($this->resp->redirect_to)->with($this->resp->redirect_class, $this->resp->msg);
     }
 }
