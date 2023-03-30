@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use DB;
 use Str;
 use App\Traits\RepoResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class PaymentBankAcc extends Model
 {
@@ -27,7 +27,6 @@ class PaymentBankAcc extends Model
             $model->updated_by = Auth::id();
         });
     }
-
 
     public function entryBy()
     {
@@ -99,6 +98,7 @@ class PaymentBankAcc extends Model
             $account->f_payment_method_no = $request->payment_method;
             $account->save();
         } catch (\Exception $e) {
+
             DB::rollback();
             dd($e);
             return $this->formatResponse(false, $e->getMessage(), 'admin.payment_acc.list');
@@ -128,5 +128,4 @@ class PaymentBankAcc extends Model
         DB::commit();
         return $this->formatResponse(true, 'Payment account has been updated successfully !', 'admin.payment_acc.list');
     }
-
 }

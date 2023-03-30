@@ -3,12 +3,12 @@
 @section('Web Ads', 'menu-open')
 @section('ads_list', 'active')
 
-@section('title') Ads | Images @endsection
-@section('page-name') Ads | Images @endsection
+@section('title') {{ __('Ads | Images') }} @endsection
+@section('page-name') {{ __('Ads | Images') }} @endsection
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">@lang('agent.breadcrumb_title') </a></li>
-    <li class="breadcrumb-item active">Ads</li>
+    <li class="breadcrumb-item active">{{ __('Ads') }}</li>
 @endsection
 
 @push('style')
@@ -19,11 +19,9 @@
 @endpush
 
 @section('content')
-
     @php
         $rows = $data['rows'];
     @endphp
-
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -52,7 +50,7 @@
                                     <span class="float-right">
                                         <a href="{{ route('admin.ads') }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-backward"></i>
-                                            Back
+                                            {{ __('Back') }}
                                         </a>
                                     </span>
                                 </h5>
@@ -97,7 +95,7 @@
                                                 </div>
                                                 <div class="col-sm-4 offset-sm-4 mt-2">
                                                     <button type="submit" class="btn btn-primary btn-block">
-                                                        <i class="la la-check-square-o"></i> Save
+                                                        <i class="fa fa-save"></i> {{ __('Save') }}
                                                     </button>
                                                 </div>
                                             </div>
@@ -108,11 +106,11 @@
                                                 <table class="table table-striped table-bordered table-sm text-center">
                                                     <thead>
                                                         <tr>
-                                                            <th>SL</th>
-                                                            <th>Photo</th>
-                                                            <th>Order ID</th>
-                                                            <th>URL</th>
-                                                            <th>Actions</th>
+                                                            <th>{{ __('SL') }}</th>
+                                                            <th>{{ __('Photo') }}</th>
+                                                            <th>{{ __('Order I') }}D</th>
+                                                            <th>{{ __('URL') }}</th>
+                                                            <th>{{ __('Actions') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -123,13 +121,13 @@
                                                                     <td>
                                                                         <img src="{{ asset($image->image_path) }}"
                                                                             alt=""
-                                                                            style="max-height: 100px;max-width: 500px">
+                                                                            style="max-height: 100px;max-width: 100px">
                                                                     </td>
                                                                     <td>{{ $image->order_id }}</td>
                                                                     <td>{{ $image->url }}</td>
                                                                     <td>
                                                                         @if (Auth::user()->can('admin.ads-image.update'))
-                                                                            <a class="btn btn-xs btn-success mb-05 mr-05"
+                                                                            <a class="btn btn-xs btn-success mb-05 mr-05 edit-btn"
                                                                                 href=""
                                                                                 data-value="{{ $image->order_id }}"
                                                                                 data-id="{{ $image->id }}"
@@ -172,7 +170,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Image Order</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ __('Edit Image Order') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -211,10 +209,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning mr-1" data-dismiss="modal">
-                        <i class="ft-x"></i> Cancel
+                        <i class="fa fa-times"></i> {{ __('Cancel') }}
                     </button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="la la-check-square-o"></i> Save
+                        <i class="fa fa-save"></i> {{ __('Save') }}
                     </button>
                 </div>
                 {!! Form::close() !!}

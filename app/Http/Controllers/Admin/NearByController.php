@@ -7,17 +7,28 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class NearByController extends Controller
 {
-    public function getIndex(){
-        $nearby_area = NearBy::orderBy('id','desc')->get();
-        return view('admin.nearby.index',compact('nearby_area'));
+    public function getIndex()
+    {
+        $nearby_area = NearBy::orderBy('id', 'desc')->get();
+        return view('admin.nearby.index', compact('nearby_area'));
     }
-    public function getCreate(){
+    public function getCreate()
+    {
         return view('admin.nearby.create');
     }
-    public function postStore(Request $request){
+    public function postStore(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'order_id' => 'required',
+            'status' => 'required',
+            'icon' => 'required',
+        ]);
+
         $this->status = false;
         $this->msg = 'Feature not added!';
 
@@ -46,20 +57,34 @@ class NearByController extends Controller
             $this->status = true;
             $this->msg = 'NearBy added successfully!';
         } catch (\Exception $e) {
+
             DB::rollBack();
-            dd($e);
+
+            $this->msg = 'Someting worng. Please try again!';
+
+            Toastr::success($this->msg);
+            return redirect()->back();
         }
 
         DB::commit();
-        return redirect()->route('admin.nearbyarea.list')->with('flashMessageSuccess', $this->msg);
+
+        Toastr::success($this->msg);
+
+        return redirect()->route('admin.nearbyarea.list');
     }
     public function getEdit($id)
     {
         $data = NearBy::find($id);
-        return view('admin.nearby.edit',compact('data'));
+        return view('admin.nearby.edit', compact('data'));
     }
-    public function postUpdate(Request $request,$id)
+    public function postUpdate(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required',
+            'order_id' => 'required',
+            'status' => 'required',
+        ]);
+
         $this->status = false;
         $this->msg = 'Feature not updated!';
 
@@ -82,10 +107,19 @@ class NearByController extends Controller
             $this->msg = 'NearBy updated successfully!';
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
+            // dd($e);
+
+
+            $this->msg = 'Someting worng. Please try again!';
+
+            Toastr::success($this->msg);
+            return redirect()->back();
         }
 
         DB::commit();
-        return redirect()->route('admin.nearbyarea.list')->with('flashMessageSuccess', $this->msg);
+
+        Toastr::success($this->msg);
+
+        return redirect()->route('admin.nearbyarea.list');
     }
 }

@@ -58,7 +58,7 @@ class WebAds extends Model
     public function getPaginatedList($request)
     {
         $data = WebAds::with(['position', 'images'])->orderBy('id', 'asc')->get();
-        return $this->formatResponse(true, '', 'web.ads', $data);
+        return $this->formatResponse(true, '', 'admin.ads', $data);
     }
 
     public function storeAd($request)
@@ -83,14 +83,14 @@ class WebAds extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($status, $msg, 'web.ads');
+        return $this->formatResponse($status, $msg, 'admin.ads');
     }
 
     public function editAd($id)
     {
         $data['positions'] = AdsPosition::orderBy('id', 'asc')->pluck('name', 'position_id');
         $data['ad'] = WebAds::find($id);
-        return $this->formatResponse(true, '', 'web.ads', $data);
+        return $this->formatResponse(true, '', 'admin.ads', $data);
     }
 
     public function updateAd($request, $id)
@@ -115,13 +115,13 @@ class WebAds extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($status, $msg, 'web.ads');
+        return $this->formatResponse($status, $msg, 'admin.ads');
     }
 
     public function getAdsPositions($request)
     {
         $data = AdsPosition::orderBy('id', 'asc')->get();
-        return $this->formatResponse(true, '', 'web.ads_position', $data);
+        return $this->formatResponse(true, '', 'admin.ads_position', $data);
     }
 
     public function getAdsPosition(int $id)
@@ -150,7 +150,7 @@ class WebAds extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($status, $msg, 'web.ads_position');
+        return $this->formatResponse($status, $msg, 'admin.ads_position');
     }
 
     public function updateAdsPosition($request, $id)
@@ -212,7 +212,7 @@ class WebAds extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($status, $msg, 'web.ads.image');
+        return $this->formatResponse($status, $msg, 'admin.ads-image');
     }
 
     public function updateAdsImage($request)
@@ -235,7 +235,7 @@ class WebAds extends Model
         }
 
         DB::commit();
-        return $this->formatResponse($status, $msg, 'web.ads.image');
+        return $this->formatResponse($status, $msg, 'admin.ads-image');
     }
 
 
