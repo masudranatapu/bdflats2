@@ -41,11 +41,9 @@ class PropertyCategoryController extends BaseController
 
     public function getEdit(Request $request, $id)
     {
-
         $this->resp = $this->category->findOrThrowException($id);
         //dd($this->resp->data);
         return view('admin.property_category.edit')->withCategory($this->resp->data);
-
     }
 
     public function postUpdate(PropertyCategoryRequest $request, $id)
@@ -56,8 +54,6 @@ class PropertyCategoryController extends BaseController
 
     public function getDelete($id)
     {
-       dd($id);
+        dd($id);
     }
-
-
 }
